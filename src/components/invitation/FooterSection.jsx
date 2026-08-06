@@ -1,0 +1,2 @@
+import { Container } from '../common/Container'; import { formatWeddingDate } from '../../utils/dateUtils';
+export function FooterSection({ config }) { return <footer className="bg-[#302d28] py-14 text-center text-[#f5f0e8]"><Container><p className="display text-3xl">{config.couple.combinedName}</p><p className="mt-4 text-xs tracking-[.14em]">{formatWeddingDate(config.wedding.date).replaceAll('.', ' • ')}</p><p className="mt-10 text-xs text-[#cfc5b8]">Սիրով սպասում ենք Ձեզ</p></Container></footer>; }

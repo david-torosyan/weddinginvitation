@@ -1,0 +1,2 @@
+import { EventCard } from './EventCard';
+export function EventTimeline({ events }) { const active = events.filter((event) => event.enabled); return <section className="px-5 pb-16 pt-10 text-center sm:px-8"><h2 className="latin-display text-[clamp(3.1rem,12vw,4.8rem)] leading-[.67]">Timing <em className="block text-[.7em]">special</em></h2><div className="mx-auto mt-10 max-w-sm">{active.map((event, index) => <EventCard key={event.id} event={event} last={index === active.length - 1}/>)}</div></section>; }

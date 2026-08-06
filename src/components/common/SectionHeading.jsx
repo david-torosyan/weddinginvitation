@@ -1,0 +1,1 @@
+export function SectionHeading({ eyebrow, children }) { return <header className="text-center"><p className="eyebrow mb-5 text-[var(--color-muted)]">{eyebrow}</p><h2 className="display text-[clamp(1.75rem,4vw,3rem)] font-normal leading-tight">{children}</h2><p className="ornament mt-6 text-[var(--color-accent)]">✦</p></header>; }

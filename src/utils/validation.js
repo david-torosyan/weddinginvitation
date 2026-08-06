@@ -1,0 +1,1 @@
+export function validateRsvp(values) { const errors = {}; if (!values.guestName.trim()) errors.guestName = 'Խնդրում ենք նշել անունն ու ազգանունը։'; if (!values.guestCount || Number(values.guestCount) < 1) errors.guestCount = 'Նշեք հրավիրված հյուրերի քանակը։'; if (!values.attendance) errors.attendance = 'Խնդրում ենք ընտրել պատասխան։'; return errors; }
