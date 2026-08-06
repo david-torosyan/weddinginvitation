@@ -54,6 +54,25 @@ export const weddingConfig = {
     weekdays: ['Երկ', 'Երք', 'Չոր', 'Հնգ', 'Ուրբ', 'Շաբ', 'Կիր'],
   },
 
+  gallery: {
+    image: '/images/events/elenlyov.png',
+    imageAlt: 'Էլենի և Լյովայի լուսանկարը',
+  },
+
+  location: {
+    kicker: 'Վայրը',
+    heading: 'Location',
+    emphasis: 'for you',
+    description: 'Մեզ համար կարևոր յուրաքանչյուր պահը կանցկացնենք գեղեցիկ և սիրելի վայրերում։',
+    mapButtonText: 'Քարտեզ',
+  },
+
+  timing: {
+    kicker: 'Ժամանակացույց',
+    heading: 'Timing',
+    emphasis: 'special',
+  },
+
   events: [
     {
       id: 'bride-house', number: '01', title: 'Հարսի տուն', time: '12:00',
@@ -96,6 +115,11 @@ export const weddingConfig = {
     namePlaceholder: 'Ձեր անունը',
     guestCountPlaceholder: 'Հյուրերի քանակը',
     attendancePlaceholder: 'Կմասնակցե՞ք',
+    invitedByPlaceholder: 'Ում կողմից եք հրավիրված',
+    invitedByOptions: [
+      { value: 'bride', label: 'Հարսի կողմից' },
+      { value: 'groom', label: 'Փեսայի կողմից' },
+    ],
     attendanceOptions: [
       { value: 'yes', label: 'Այո, սիրով կմասնակցեմ' },
       { value: 'no', label: 'Ցավոք, չեմ կարողանա մասնակցել' },
@@ -103,7 +127,7 @@ export const weddingConfig = {
     submitButtonText: 'Ուղարկել պատասխանը',
     sendingText: 'Ուղարկվում է…',
     successMessage: 'Ձեր պատասխանը ուղարկված է։ Շնորհակալություն։',
-    invalidGuestCountMessage: 'Խնդրում ենք նշել հյուրերի քանակը։',
+    invalidGuestCountMessage: 'Մասնակցելու դեպքում խնդրում ենք նշել առնվազն մեկ հյուր։',
     errorMessage: 'Չհաջողվեց ուղարկել պատասխանը։ Խնդրում ենք կրկին փորձել։',
   },
 };

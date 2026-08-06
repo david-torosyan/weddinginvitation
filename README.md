@@ -14,7 +14,7 @@ See `public/images/README.md`. Replace the local files while retaining filenames
 
 ## RSVP → Google Sheets
 
-The form sends the guest name, attendance choice, and submission time through the webhook service. To connect the provided spreadsheet:
+The form sends the guest name, guest count, attendance choice, invited-by choice, and submission time through the webhook service. To connect the provided spreadsheet:
 
 1. Open the spreadsheet and choose **Extensions → Apps Script**.
 2. Copy the contents of `google-apps-script/Code.gs` into the Apps Script editor and save it.
