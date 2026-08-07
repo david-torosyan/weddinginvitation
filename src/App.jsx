@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowDown,
   ArrowUpRight,
@@ -16,6 +16,7 @@ import loveSymbolImage from './assets/pics/loveSymbol.png';
 import brideIcon from './assets/pics/bride.png';
 import churchIcon from './assets/pics/churchlogo.png';
 import servantIcon from './assets/pics/servant.png';
+import musicTrack from './musics/Stephen-Sanchez-Until-I-Found-You.m4a';
 
 const timelineIcons = [brideIcon, churchIcon, servantIcon];
 
@@ -122,9 +123,15 @@ export default function App() {
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState('');
+  const audioRef = useRef(null);
   const { couple, wedding, cover, hero, events, notes, rsvp, gallery, location, timing } = config;
   const visibleEvents = events.filter(event => event.enabled !== false);
   const dateParts = wedding.displayDate.split(' · ');
+
+  function openInvitation() {
+    setOpened(true);
+    audioRef.current?.play().catch(() => {});
+  }
 
   useEffect(() => {
     document.title = `${couple.combinedName} | Հարսանեկան հրավեր`;
@@ -158,6 +165,96 @@ export default function App() {
 
     nodes.forEach(node => observer.observe(node));
     return () => observer.disconnect();
+  }, [opened]);
+
+  useEffect(() => {
+    if (!opened) return undefined;
+
+    const audio = audioRef.current;
+    let retryTimer;
+    const tryPlay = () => {
+      if (!audio) return Promise.resolve();
+      const attempt = audio.play();
+      return attempt && typeof attempt.then === 'function' ? attempt : Promise.resolve();
+    };
+
+    retryTimer = window.setTimeout(() => { tryPlay().catch(() => {}); }, 1000);
+
+    const unlockAudio = () => {
+      tryPlay()
+        .then(() => {
+          document.removeEventListener('pointerdown', unlockAudio);
+          document.removeEventListener('touchstart', unlockAudio);
+          document.removeEventListener('keydown', unlockAudio);
+        })
+        .catch(() => {});
+    };
+
+    document.addEventListener('pointerdown', unlockAudio, { passive: true });
+    document.addEventListener('touchstart', unlockAudio, { passive: true });
+    document.addEventListener('keydown', unlockAudio);
+
+    return () => {
+      window.clearTimeout(retryTimer);
+      document.removeEventListener('pointerdown', unlockAudio);
+      document.removeEventListener('touchstart', unlockAudio);
+      document.removeEventListener('keydown', unlockAudio);
+    };
+  }, [opened]);
+
+  useEffect(() => {
+    if (!opened) return undefined;
+
+    let cancelled = false;
+    let frame;
+    let timer;
+    const cancelAutoScroll = () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+      window.cancelAnimationFrame(frame);
+    };
+    const onKeyDown = event => {
+      if (['ArrowDown', 'PageDown', ' ', 'End'].includes(event.key)) cancelAutoScroll();
+    };
+
+    window.addEventListener('wheel', cancelAutoScroll, { passive: true });
+    window.addEventListener('touchmove', cancelAutoScroll, { passive: true });
+    window.addEventListener('keydown', onKeyDown);
+
+    timer = window.setTimeout(() => {
+      if (cancelled) return;
+      const start = window.scrollY;
+      const target = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      const distance = target - start;
+      if (distance <= 12) return;
+
+      const duration = Math.min(26000, Math.max(14000, distance * 14));
+      const startedAt = performance.now();
+      const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
+
+      const step = now => {
+        if (cancelled) {
+          document.documentElement.style.scrollBehavior = previousScrollBehavior;
+          return;
+        }
+        const progress = Math.min(1, (now - startedAt) / duration);
+        window.scrollTo(0, start + distance * progress);
+        if (progress < 1) frame = window.requestAnimationFrame(step);
+        else document.documentElement.style.scrollBehavior = previousScrollBehavior;
+      };
+
+      frame = window.requestAnimationFrame(step);
+    }, 2000);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener('wheel', cancelAutoScroll);
+      window.removeEventListener('touchmove', cancelAutoScroll);
+      window.removeEventListener('keydown', onKeyDown);
+    };
   }, [opened]);
 
   async function handleRsvp(event) {
@@ -196,6 +293,7 @@ export default function App() {
 
   return (
     <div className="invite-shell">
+      <audio ref={audioRef} className="invitation-audio" src={musicTrack} loop preload="auto" playsInline />
       {!opened && (
         <section className="cover" aria-label="Invitation cover">
           <div className="cover-panel">
@@ -206,7 +304,7 @@ export default function App() {
               <p className="cover-date">{wedding.displayDate}</p>
               <h1>{couple.partnerOne}<span>&amp;</span>{couple.partnerTwo}</h1>
               <p>{cover.note}</p>
-              <button onClick={() => setOpened(true)} type="button">
+              <button onClick={openInvitation} type="button">
                 {cover.buttonText}<ArrowDown size={18} />
               </button>
             </div>

@@ -44,3 +44,6 @@ weddingConfig.gallery.image = elenlyovImage;
 weddingConfig.events[0].image = homeImage;
 weddingConfig.events[1].image = churchImage;
 weddingConfig.events[2].image = restorantImage;
+weddingConfig.events[2].venue = 'Ադանա ռեստորանային համալիր';
+weddingConfig.events[2].address = 'Ադանա ռեստորանային համալիր';
+weddingConfig.events[2].mapUrl = 'https://www.google.com/maps/search/?api=1&query=Adana+restaurant+complex+Armenia';
