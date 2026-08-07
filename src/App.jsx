@@ -13,6 +13,7 @@ import {
 import { useCountdown } from './hooks/useCountdown';
 import { submitRsvp } from './services/rsvpService';
 import { weddingConfig as config } from './config/weddingConfig';
+import loveSymbolImage from './assets/pics/loveSymbol.png';
 
 const formatNumber = value => String(value).padStart(2, '0');
 
@@ -81,6 +82,10 @@ function WeddingCalendar() {
             </span>
           ))}
         </div>
+      </div>
+
+      <div className="calendar-love-symbol" aria-hidden="true">
+        <img src={loveSymbolImage} alt="" loading="lazy" />
       </div>
     </section>
   );

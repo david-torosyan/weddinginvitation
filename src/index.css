@@ -370,14 +370,16 @@ img {
 }
 
 .calendar-section {
+  --calendar-pad: clamp(1.6rem, 3vw, 2.3rem);
   position: relative;
   isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(18rem, 22rem);
-  gap: clamp(1.4rem, 4vw, 2.8rem);
+  column-gap: clamp(1.4rem, 4vw, 2.8rem);
+  row-gap: 0;
   align-items: center;
   margin: 0 clamp(1rem, 3vw, 2rem);
-  padding: clamp(1.6rem, 3vw, 2.3rem);
+  padding: var(--calendar-pad);
   border-radius: var(--radius-xl);
   background:
     radial-gradient(circle at 8% 12%, rgba(255, 255, 255, 0.94), transparent 27%),
@@ -542,6 +544,43 @@ img {
   display: grid;
   place-items: center;
   background: var(--paper);
+}
+
+.calendar-love-symbol {
+  position: relative;
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  width: calc(100% + (var(--calendar-pad) * 2));
+  min-height: clamp(9rem, 18vw, 13rem);
+  margin: 0 calc(var(--calendar-pad) * -1) calc(var(--calendar-pad) * -1);
+  padding: 2rem clamp(1.4rem, 5vw, 4rem);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.2), transparent 42%),
+    linear-gradient(180deg, transparent 0%, rgba(209, 183, 175, 0.58) 30%, #b19189 100%);
+}
+
+.calendar-love-symbol::before,
+.calendar-love-symbol::after {
+  content: '✦';
+  position: absolute;
+  top: 50%;
+  color: rgba(255, 235, 225, 0.65);
+  font-family: var(--display);
+  font-size: 1rem;
+  transform: translateY(-50%);
+}
+
+.calendar-love-symbol::before { left: 18%; }
+.calendar-love-symbol::after { right: 18%; }
+
+.calendar-love-symbol img {
+  width: min(100%, 34rem);
+  height: auto;
+  display: block;
+  opacity: 0.94;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.18));
 }
 
 .memory-section {
@@ -952,24 +991,83 @@ img {
 }
 
 .rsvp-section {
-  background: var(--paper);
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(215, 184, 163, 0.18), transparent 24%),
+    radial-gradient(circle at 88% 82%, rgba(215, 184, 163, 0.2), transparent 26%),
+    linear-gradient(180deg, #fffaf6 0%, #f5e8e1 100%);
+}
+
+.rsvp-section::before {
+  content: '♡  ✦  ♡';
+  position: absolute;
+  top: 2.2rem;
+  left: 50%;
+  color: rgba(139, 95, 77, 0.32);
+  font-family: var(--display);
+  font-size: 1rem;
+  letter-spacing: 0.8rem;
+  transform: translateX(-50%);
 }
 
 .rsvp-panel {
+  position: relative;
+  overflow: hidden;
   max-width: 48rem;
   margin: 0 auto;
-  padding: clamp(1.4rem, 3vw, 2rem);
-  border: 1px solid rgba(139, 95, 77, 0.12);
-  border-radius: var(--radius-xl);
+  padding: clamp(2rem, 4vw, 3.4rem) clamp(1.4rem, 4vw, 3.2rem) clamp(1.8rem, 3vw, 2.6rem);
+  border: 1px solid rgba(139, 95, 77, 0.16);
+  border-radius: 34px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 252, 248, 0.98));
-  box-shadow: var(--shadow-soft);
+    radial-gradient(circle at 50% -20%, rgba(255, 255, 255, 0.98), transparent 48%),
+    linear-gradient(180deg, rgba(255, 253, 250, 0.94), rgba(255, 248, 242, 0.98));
+  box-shadow: 0 28px 70px rgba(104, 65, 56, 0.14), inset 0 1px 0 #fff;
 }
+
+.rsvp-panel::before,
+.rsvp-panel::after {
+  content: '❦';
+  position: absolute;
+  color: rgba(139, 95, 77, 0.24);
+  font-family: var(--display);
+  font-size: 2.3rem;
+  line-height: 1;
+}
+
+.rsvp-panel::before { top: 1.4rem; left: 1.5rem; transform: rotate(-18deg); }
+.rsvp-panel::after { right: 1.5rem; bottom: 1.2rem; transform: rotate(162deg); }
 
 .rsvp-section .section-copy {
   max-width: 34rem;
-  margin: 0 auto 1.8rem;
+  margin: 0 auto 2.1rem;
   text-align: center;
+}
+
+.rsvp-section .section-copy h2 {
+  margin-top: 0.8rem;
+  color: var(--ink);
+  font-size: clamp(2.8rem, 7vw, 4.5rem);
+  line-height: 0.88;
+}
+
+.rsvp-section .section-copy h2::after {
+  content: 'with love';
+  display: block;
+  margin-top: 0.7rem;
+  color: var(--brown);
+  font-family: var(--script);
+  font-size: 0.56em;
+  font-weight: 400;
+  line-height: 0.8;
+}
+
+.rsvp-section .section-copy > p:not(.kicker) {
+  max-width: 32rem;
+  margin-right: auto;
+  margin-left: auto;
+  color: var(--muted);
+  line-height: 1.8;
 }
 
 .rsvp-section form {
@@ -984,23 +1082,23 @@ img {
 }
 
 .rsvp-section label span {
-  color: var(--muted);
-  font-size: 0.82rem;
+  color: var(--brown-deep);
+  font-size: 0.78rem;
   font-weight: 600;
 }
 
 .rsvp-section input,
 .rsvp-section select {
   width: 100%;
-  min-height: 54px;
+  min-height: 56px;
   padding: 0 1rem;
-  border: 1px solid var(--line);
-  border-radius: 16px;
+  border: 1px solid rgba(139, 95, 77, 0.2);
+  border-radius: 18px;
   outline: 0;
-  background: rgba(255, 255, 255, 0.68);
+  background: rgba(255, 255, 255, 0.78);
   color: var(--ink);
   font-size: 0.98rem;
-  transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease, transform 180ms ease;
 }
 
 .rsvp-section input::placeholder {
@@ -1013,17 +1111,26 @@ img {
 
 .rsvp-section input:focus,
 .rsvp-section select:focus {
-  border-color: rgba(139, 95, 77, 0.5);
-  box-shadow: 0 0 0 4px rgba(139, 95, 77, 0.1);
+  border-color: rgba(139, 95, 77, 0.62);
+  box-shadow: 0 0 0 4px rgba(139, 95, 77, 0.1), 0 8px 20px rgba(104, 65, 56, 0.08);
   background: #fff;
+  transform: translateY(-1px);
+}
+
+.rsvp-section input:focus:invalid,
+.rsvp-section select:focus:invalid {
+  border-color: #c98278;
+  box-shadow: 0 0 0 4px rgba(201, 130, 120, 0.12);
 }
 
 .rsvp-section button {
   grid-column: 1 / -1;
   width: fit-content;
-  min-width: 15rem;
-  margin: 0.5rem auto 0;
-  padding: 0 1.5rem;
+  min-width: 16rem;
+  margin: 0.8rem auto 0;
+  padding: 0 1.7rem;
+  background: linear-gradient(135deg, #a56d5a 0%, #754938 100%);
+  box-shadow: 0 14px 28px rgba(111, 71, 56, 0.24);
 }
 
 .rsvp-section button:disabled {
@@ -1034,10 +1141,18 @@ img {
 .form-status {
   grid-column: 1 / -1;
   min-height: 1.2em;
-  margin: 0;
-  color: #a44343;
+  margin: 0.25rem 0 0;
+  padding: 0.7rem 1rem;
+  border-radius: 14px;
+  color: #9b4f49;
   font-size: 0.9rem;
+  line-height: 1.55;
   text-align: center;
+}
+
+.form-status:not(:empty) {
+  border: 1px solid rgba(169, 77, 70, 0.16);
+  background: rgba(201, 130, 120, 0.1);
 }
 
 .thanks {
@@ -1047,14 +1162,16 @@ img {
   gap: 0.9rem;
   max-width: 28rem;
   margin: 0 auto;
-  padding: 1.35rem 1.5rem;
-  border: 1px solid rgba(139, 95, 77, 0.14);
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.72);
+  padding: 1.5rem 1.6rem;
+  border: 1px solid rgba(139, 95, 77, 0.18);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.78);
   color: var(--ink);
   text-align: center;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 18px 36px rgba(104, 65, 56, 0.1);
 }
+
+.thanks svg { color: var(--brown); }
 
 .thanks p {
   margin: 0;
@@ -1062,10 +1179,40 @@ img {
 }
 
 .details-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   background:
-    radial-gradient(circle at top, rgba(139, 95, 77, 0.22), transparent 28%),
-    linear-gradient(180deg, #1f1b18 0%, #141210 100%);
-  color: #fff;
+    radial-gradient(circle at 8% 10%, rgba(255, 255, 255, 0.9), transparent 24%),
+    radial-gradient(circle at 92% 90%, rgba(215, 184, 163, 0.28), transparent 30%),
+    linear-gradient(180deg, #f5e8e1 0%, #f8eee8 14%, #f1ddd6 56%, #e8d0ca 100%);
+  color: var(--ink);
+  box-shadow: inset 0 22px 36px rgba(255, 255, 255, 0.25);
+}
+
+.details-section::before {
+  content: '❦';
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  z-index: -1;
+  color: rgba(139, 95, 77, 0.26);
+  font-family: var(--display);
+  font-size: 2rem;
+  transform: translateX(-50%);
+}
+
+.details-section::after {
+  content: '';
+  position: absolute;
+  right: -8rem;
+  bottom: -9rem;
+  z-index: -1;
+  width: 22rem;
+  height: 22rem;
+  border: 1px solid rgba(139, 95, 77, 0.13);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1.5rem rgba(255, 255, 255, 0.14), 0 0 0 3rem rgba(139, 95, 77, 0.05);
 }
 
 .details-section .section-copy {
@@ -1075,11 +1222,24 @@ img {
 }
 
 .details-section .kicker {
-  color: var(--brown-soft);
+  color: var(--brown-deep);
 }
 
 .details-section .section-copy h2 {
-  color: #fff;
+  color: var(--ink);
+  font-size: clamp(2.8rem, 7vw, 4.5rem);
+  line-height: 0.88;
+}
+
+.details-section .section-copy h2::after {
+  content: 'with love';
+  display: block;
+  margin-top: 0.75rem;
+  color: var(--brown);
+  font-family: var(--script);
+  font-size: 0.56em;
+  font-weight: 400;
+  line-height: 0.8;
 }
 
 .details-grid {
@@ -1091,15 +1251,22 @@ img {
 .details-grid article {
   min-height: 14rem;
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(139, 95, 77, 0.16);
   border-radius: 26px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 253, 250, 0.68);
   text-align: center;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow: 0 18px 36px rgba(104, 65, 56, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(7px);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.details-grid article:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 44px rgba(104, 65, 56, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.88);
 }
 
 .details-grid svg {
-  color: var(--brown-soft);
+  color: var(--brown);
 }
 
 .details-grid h3 {
@@ -1111,7 +1278,7 @@ img {
 
 .details-grid p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--muted);
   font-size: 0.95rem;
   line-height: 1.75;
 }
@@ -1126,14 +1293,14 @@ img {
 
 .signature p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--brown-deep);
   font-family: var(--display);
   font-size: 1rem;
   letter-spacing: 0.18em;
 }
 
 .signature strong {
-  color: rgba(255, 255, 255, 0.96);
+  color: var(--ink);
   font-family: var(--display);
   font-size: clamp(3.4rem, 8vw, 5rem);
   font-weight: 400;
@@ -1141,7 +1308,7 @@ img {
 }
 
 .signature small {
-  color: var(--brown-soft);
+  color: var(--brown);
   font-family: var(--display);
   font-size: 0.92rem;
   font-style: italic;
@@ -1380,8 +1547,9 @@ footer small {
   }
 
   .calendar-section {
+    --calendar-pad: 1.3rem;
     margin: 0 0.9rem;
-    padding: 1.3rem;
+    padding: var(--calendar-pad);
     border-radius: 24px;
   }
 

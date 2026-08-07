@@ -1,4 +1,9 @@
 // Edit this file to update the invitation content without changing the page layout.
+import elenlyovImage from '../assets/pics/elenlyov.png';
+import homeImage from '../assets/pics/home.png';
+import churchImage from '../assets/pics/church.png';
+import restorantImage from '../assets/pics/restorant.png';
+
 export const weddingConfig = {
   couple: { partnerOne: 'Էլեն', partnerTwo: 'Լյովա', combinedName: 'ԷԼԵՆ & ԼՅՈՎԱ', initials: { partnerOne: 'Է', partnerTwo: 'Լ' } },
   wedding: {
@@ -32,3 +37,10 @@ export const weddingConfig = {
     invalidGuestCountMessage: 'Մասնակցելու դեպքում խնդրում ենք նշել առնվազն մեկ հյուր։', errorMessage: 'Չհաջողվեց ուղարկել պատասխանը։ Խնդրում ենք կրկին փորձել։',
   },
 };
+
+weddingConfig.cover.image = elenlyovImage;
+weddingConfig.hero.image = elenlyovImage;
+weddingConfig.gallery.image = elenlyovImage;
+weddingConfig.events[0].image = homeImage;
+weddingConfig.events[1].image = churchImage;
+weddingConfig.events[2].image = restorantImage;
