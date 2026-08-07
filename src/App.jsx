@@ -13,6 +13,11 @@ import { useCountdown } from './hooks/useCountdown';
 import { submitRsvp } from './services/rsvpService';
 import { weddingConfig as config } from './config/weddingConfig';
 import loveSymbolImage from './assets/pics/loveSymbol.png';
+import brideIcon from './assets/pics/bride.png';
+import churchIcon from './assets/pics/churchlogo.png';
+import servantIcon from './assets/pics/servant.png';
+
+const timelineIcons = [brideIcon, churchIcon, servantIcon];
 
 const formatNumber = value => String(value).padStart(2, '0');
 
@@ -59,8 +64,8 @@ function WeddingCalendar() {
     <section className="calendar-section section" id="date">
       <div className="section-copy">
         <p className="kicker">{calendar.kicker}</p>
-        <h2>{calendar.heading}</h2>
-        <p>{calendar.description}</p>
+        <h2 data-shadow={calendar.heading}>{calendar.heading}</h2>
+        <p>{calendar.description.split('։')[0]}։</p>
       </div>
 
       <div className="calendar-card" aria-label={wedding.longDate}>
@@ -236,7 +241,7 @@ export default function App() {
         <section className="places-section section" id="places">
           <div className="section-copy">
             <p className="kicker">{location.kicker}</p>
-            <h2>Location<em>for you</em></h2>
+            <h2 data-shadow="Location">Location<em>for you</em></h2>
             <p>{location.description}</p>
           </div>
           <div className="event-list">
@@ -249,12 +254,15 @@ export default function App() {
         <section className="timeline-section section">
           <div className="section-copy">
             <p className="kicker">{timing.kicker}</p>
-            <h2>Timing<em>special</em></h2>
+            <h2 data-shadow="Timing">Timing<em>special</em></h2>
           </div>
           <div className="timeline-list">
-            {visibleEvents.map(event => (
+            {visibleEvents.map((event, index) => (
               <article key={event.id}>
                 <div className="timeline-event">
+                  <span className="timeline-icon" aria-hidden="true">
+                    <img className="timeline-icon-image" src={timelineIcons[index]} alt="" />
+                  </span>
                   <time>{event.time}</time>
                   <h3>{event.title}</h3>
                   <p>{event.venue}</p>
@@ -278,7 +286,7 @@ export default function App() {
             <div className="rsvp-panel">
               <div className="section-copy">
                 <p className="kicker">{rsvp.kicker}</p>
-                <h2>{rsvp.heading}</h2>
+                <h2 data-shadow={rsvp.heading}>{rsvp.heading}</h2>
                 <p>{rsvp.description}</p>
               </div>
 
@@ -329,7 +337,7 @@ export default function App() {
         <section className="details-section section">
           <div className="section-copy">
             <p className="kicker">{notes.kicker}</p>
-            <h2>DETAILS<em>special</em></h2>
+            <h2 data-shadow="DETAILS">DETAILS<em>special</em></h2>
           </div>
           <div className="details-grid">
             {notes.items.map(note => (

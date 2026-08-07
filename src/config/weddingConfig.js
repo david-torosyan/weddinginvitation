@@ -1,5 +1,5 @@
 // Edit this file to update the invitation content without changing the page layout.
-import elenlyovImage from '../assets/pics/elenlyov.png';
+import elenlyovImage from '../assets/pics/elenlyov.jpg';
 import homeImage from '../assets/pics/home.png';
 import churchImage from '../assets/pics/church.png';
 import restorantImage from '../assets/pics/restorant.png';
@@ -10,12 +10,12 @@ export const weddingConfig = {
     date: '2026-10-25T14:00:00+04:00', displayDate: '25 · 10 · 2026', longDate: 'Կիրակի · 25 Հոկտեմբեր · 2026',
     locale: 'hy-AM', timezone: 'Asia/Yerevan', rsvpDeadline: '2026-10-15T23:59:59+04:00',
   },
-  cover: { note: 'A day to remember', buttonText: 'Բացել հրավերը', image: '/pics/elenlyov.png', imageAlt: 'Հարսանյաց վայրի նկարազարդում' },
-  hero: { eyebrow: 'ՄԵՐ ՀԱՐՍԱՆԻՔԸ', title: 'ԷԼԵՆ & ԼՅՈՎԱ', invitationText: 'Սիրով հրավիրում ենք Ձեզ ներկա գտնվելու մեր հարսանյաց արարողությանը։', image: '/pics/elenlyov.png', imageAlt: 'Հարսանյաց վայրի նկարազարդում' },
+  cover: { note: 'A day to remember', buttonText: 'Բացել հրավերը', image: '/pics/elenlyov.jpg', imageAlt: 'Հարսանյաց վայրի նկարազարդում' },
+  hero: { eyebrow: 'ՄԵՐ ՀԱՐՍԱՆԻՔԸ', title: 'ԷԼԵՆ & ԼՅՈՎԱ', invitationText: 'Սիրով հրավիրում ենք Ձեզ ներկա գտնվելու մեր հարսանյաց արարողությանը։', image: '/pics/elenlyov.jpg', imageAlt: 'Հարսանյաց վայրի նկարազարդում' },
   introduction: { kicker: 'Հարգելի՛ հյուրեր', heading: 'Մեր պատմությունը շարունակվում է', emphasis: 'Ձեզ հետ միասին', paragraphs: ['Սիրով հրավիրում ենք Ձեզ կիսելու մեզ հետ մեր կյանքի կարևորագույն օրը։'] },
   itinerary: { kicker: 'Տոնակատարությունը', heading: 'Երեք վայր,', emphasis: 'մեկ գեղեցիկ օր', description: 'Պահպանեք ստորև նշված ժամերը և քարտեզի հղումներով գտեք յուրաքանչյուր վայրի ճանապարհը։' },
-  calendar: { kicker: 'Նշեք օրը', heading: 'Հարգելի՛ հյուրեր', description: 'Սիրով հրավիրում ենք Ձեզ ներկա գտնվելու մեր հարսանյաց արարողությանը։ Ծանոթացեք օրվա ծրագրին և հաստատեք Ձեր ներկայությունը։', weekdays: ['Երկ', 'Երք', 'Չոր', 'Հնգ', 'Ուրբ', 'Շաբ', 'Կիր'] },
-  gallery: { image: '/pics/elenlyov.png', imageAlt: 'Էլենի և Լյովայի լուսանկարը' },
+  calendar: { kicker: 'Our Day', heading: 'Հարգելի՛ հյուրեր', description: 'Սիրով հրավիրում ենք Ձեզ ներկա գտնվելու մեր հարսանյաց արարողությանը։ Ծանոթացեք օրվա ծրագրին և հաստատեք Ձեր ներկայությունը։', weekdays: ['Երկ', 'Երք', 'Չոր', 'Հնգ', 'Ուրբ', 'Շաբ', 'Կիր'] },
+  gallery: { image: '/pics/elenlyov.jpg', imageAlt: 'Էլենի և Լյովայի լուսանկարը' },
   location: { kicker: 'Վայրը', heading: 'Location', emphasis: 'for you', description: 'Մեզ համար կարևոր յուրաքանչյուր պահը կանցկացնենք գեղեցիկ և սիրելի վայրերում։', mapButtonText: 'Քարտեզ' },
   timing: { kicker: 'Ժամանակացույց', heading: 'Timing', emphasis: 'special' },
   events: [
