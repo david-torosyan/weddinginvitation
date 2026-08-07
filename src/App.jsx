@@ -8,7 +8,6 @@ import {
   Heart,
   MapPin,
   Music2,
-  Send,
 } from 'lucide-react';
 import { useCountdown } from './hooks/useCountdown';
 import { submitRsvp } from './services/rsvpService';
@@ -318,7 +317,7 @@ export default function App() {
                   </label>
                   <button disabled={busy} type="submit">
                     {busy ? rsvp.sendingText : rsvp.submitButtonText}
-                    {!busy && <Send size={16} />}
+                    {!busy && <Heart size={16} fill="currentColor" />}
                   </button>
                   <p className="form-status" aria-live="polite">{status}</p>
                 </form>
