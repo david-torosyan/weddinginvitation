@@ -119,7 +119,7 @@ function EventCard({ event, mapButtonText }) {
 }
 
 export default function App() {
-  const [opened, setOpened] = useState(false);
+  const [opened, setOpened] = useState(true);
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState('');
@@ -293,7 +293,7 @@ export default function App() {
 
   return (
     <div className="invite-shell">
-      <audio ref={audioRef} className="invitation-audio" src={musicTrack} loop preload="auto" playsInline />
+      <audio ref={audioRef} className="invitation-audio" src={musicTrack} loop preload="auto" playsInline muted />
       {!opened && (
         <section className="cover" aria-label="Invitation cover">
           <div className="cover-panel">
