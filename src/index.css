@@ -23,29 +23,29 @@
 @tailwind utilities;
 
 :root {
-  --warm-ivory: #F5F1E8;
-  --soft-cream: #E9E1D2;
-  --deep-forest: #18221D;
-  --muted-olive: #68705B;
-  --sage: #9A9D85;
-  --antique-brown: #80654A;
-  --warm-stone: #C5B49C;
-  --charcoal: #292B27;
-  --taupe-gray: #777268;
-  --soft-white: #FAF8F3;
-  --paper: #F5F1E8;
-  --paper-strong: #E9E1D2;
-  --paper-soft: #FAF8F3;
-  --ink: #292B27;
-  --night: #18221D;
-  --brown: #80654A;
-  --brown-deep: #18221D;
-  --brown-soft: #C5B49C;
-  --muted: #777268;
-  --line: rgba(41, 43, 39, 0.14);
-  --line-strong: rgba(41, 43, 39, 0.24);
-  --shadow-soft: 0 20px 44px rgba(24, 34, 29, 0.12);
-  --shadow-card: 0 30px 70px rgba(24, 34, 29, 0.18);
+  --warm-ivory: #F5EBDD;
+  --soft-cream: #EBD8C4;
+  --deep-forest: #5B4030;
+  --muted-olive: #9A7658;
+  --sage: #B99A7A;
+  --antique-brown: #80583C;
+  --warm-stone: #CDB39A;
+  --charcoal: #38271D;
+  --taupe-gray: #827064;
+  --soft-white: #FFF9F1;
+  --paper: #F5EBDD;
+  --paper-strong: #EBD8C4;
+  --paper-soft: #FFF9F1;
+  --ink: #38271D;
+  --night: #5B4030;
+  --brown: #80583C;
+  --brown-deep: #5B4030;
+  --brown-soft: #CDB39A;
+  --muted: #827064;
+  --line: rgba(56, 39, 29, 0.14);
+  --line-strong: rgba(56, 39, 29, 0.24);
+  --shadow-soft: 0 20px 44px rgba(91, 64, 48, 0.12);
+  --shadow-card: 0 30px 70px rgba(91, 64, 48, 0.18);
   --radius-xl: 34px;
   --radius-lg: 24px;
   --radius-md: 18px;
@@ -2729,12 +2729,14 @@ body.opened {
 }
 
 .calendar-section .section-copy > p:not(.kicker) {
-  max-width: 25rem;
-  font-size: clamp(1rem, 3.5vw, 1.5rem);
-  line-height: 1.65;
+  max-width: 20rem;
+  font-size: clamp(1.15rem, 4vw, 1.7rem);
+  line-height: 1.8;
+  white-space: normal;
 }
 
 .calendar-date-display {
+  margin-top: 2.6rem;
   font-size: clamp(3.2rem, 10vw, 6rem);
 }
 
