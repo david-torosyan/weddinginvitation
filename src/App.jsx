@@ -16,6 +16,7 @@ import brideIcon from './assets/pics/bride.png';
 import churchIcon from './assets/pics/churchlogo.png';
 import servantIcon from './assets/pics/servant.png';
 import leLogo from './assets/pics/LElogo.png';
+import elenAndLyovLogo from './assets/pics/ElenAndLyovLogopng.png';
 import musicTrack from './musics/Stephen-Sanchez-Until-I-Found-You.m4a';
 
 const timelineIcons = [brideIcon, churchIcon, servantIcon];
@@ -312,7 +313,7 @@ export default function App() {
       <main className={opened ? 'content visible' : 'content'}>
         <section className="hero">
           <div className="hero-overlay">
-            <p className="hero-day" aria-hidden="true" />
+            <img className="hero-names-logo" src={elenAndLyovLogo} alt="Lyov and Elen" />
             <div className="hero-photo">
               <img src={hero.image} alt={hero.imageAlt} />
               <div className="hero-date" aria-label={wedding.displayDate}>

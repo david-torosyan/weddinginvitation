@@ -2282,25 +2282,35 @@ body.opened {
 }
 
 .hero-day {
-  display: none;
+  display: block;
+  color: var(--soft-white) !important;
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-size: clamp(2.1rem, 7.5vw, 3.8rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.hero-names-logo {
+  display: block;
+  width: min(95%, 30rem);
+  height: auto;
+  margin-inline: auto;
+  mix-blend-mode: screen;
+  opacity: 0.7;
+  object-fit: contain;
 }
 
 .hero-logo {
-  width: clamp(12rem, 48vw, 22rem);
+  width: clamp(16rem, 60vw, 28rem);
   height: auto;
   margin: auto 0 0;
   object-fit: contain;
   mix-blend-mode: screen;
+  opacity: 0.7;
   filter: grayscale(1) contrast(1.08) !important;
-}
-
-.hero-day {
-  color: var(--soft-white) !important;
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1.5rem, 5vw, 2.2rem);
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  text-transform: none;
 }
 
 .hero-date {
@@ -2326,10 +2336,19 @@ body.opened {
   margin: 0.8rem 0 auto;
   color: rgba(250, 248, 243, 0.78) !important;
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 0.78rem;
+  font-size: clamp(1.8rem, 5vw, 2.7rem);
   letter-spacing: 0.12em;
   line-height: 1.5;
   text-transform: uppercase;
+}
+
+/* Preserve the original photo colors */
+.cover-art img,
+.hero-photo img,
+.event-media img,
+.memory-frame img,
+.closing-photo-frame img {
+  filter: none !important;
 }
 
 .hero-overlay::after {

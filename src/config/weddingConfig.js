@@ -7,7 +7,7 @@ import restorantImage from '../assets/pics/restorant.png';
 export const weddingConfig = {
   couple: { partnerOne: 'Էլեն', partnerTwo: 'Լյովա', combinedName: 'ԷԼԵՆ & ԼՅՈՎԱ', initials: { partnerOne: 'Է', partnerTwo: 'Լ' } },
   wedding: {
-    date: '2026-10-25T14:00:00+04:00', displayDate: '25 · 10 · 2026', longDate: 'Կիրակի · 25 Հոկտեմբեր · 2026',
+    date: '2026-10-25T14:00:00+04:00', displayDate: '20 · 10 · 2026', longDate: 'Կիրակի · 25 Հոկտեմբեր · 2026',
     locale: 'hy-AM', timezone: 'Asia/Yerevan', rsvpDeadline: '2026-10-15T23:59:59+04:00',
   },
   cover: { note: 'A day to remember', buttonText: 'Բացել հրավերը', image: '/pics/elenlyov.jpg', imageAlt: 'Հարսանյաց վայրի նկարազարդում' },
