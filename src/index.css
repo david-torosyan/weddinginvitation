@@ -11,6 +11,13 @@
   src: url('./fonts/ArTarumianBarakU-Regular.ttf') format('truetype');
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'ArTarumianBarakU Bold';
+  src: url('./fonts/ArTarumianBarakU-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -2708,6 +2715,27 @@ body.opened {
 .calendar-section .section-copy > p:not(.kicker),
 .calendar-date-display {
   font-family: 'ArTarumianBarakU', sans-serif !important;
+}
+
+.calendar-section .section-copy h2,
+.calendar-section .section-copy > p:not(.kicker),
+.calendar-date-display {
+  font-family: 'ArTarumianBarakU Bold', 'ArTarumianBarakU', sans-serif !important;
+  font-weight: 700;
+}
+
+.calendar-section .section-copy h2 {
+  font-size: clamp(3rem, 12vw, 5.8rem);
+}
+
+.calendar-section .section-copy > p:not(.kicker) {
+  max-width: 25rem;
+  font-size: clamp(1rem, 3.5vw, 1.5rem);
+  line-height: 1.65;
+}
+
+.calendar-date-display {
+  font-size: clamp(3.2rem, 10vw, 6rem);
 }
 
 .calendar-section::after,
