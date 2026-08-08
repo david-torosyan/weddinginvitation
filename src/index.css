@@ -2477,22 +2477,29 @@ body.opened {
 
 .memory-frame > img:first-child {
   position: absolute;
-  top: 0;
+  top: -2%;
   left: 0;
   width: 78%;
-  height: 68%;
+  height: 65%;
   object-fit: cover;
 }
 
 .memory-frame .memory-detail {
   position: absolute;
-  right: 0;
-  top: 42%;
+  left: auto;
+  top: 40%;
   z-index: 2;
-  width: 70%;
-  height: 42%;
+  width: 78%;
+  height: 52%;
+  right: 0;
   object-fit: cover;
+  height: 52% !important;
+  aspect-ratio: 1.2;
+  overflow: hidden;
+  clip-path: none;
 }
+
+
 
 .memory-frame > span {
   display: none;
@@ -2706,7 +2713,9 @@ body.opened {
 }
 
 .memory-frame {
-  max-width: 18rem;
+  width: min(100%, 30rem);
+  max-width: none;
+  aspect-ratio: 0.8;
   margin-inline: auto;
 }
 
@@ -2730,7 +2739,7 @@ body.opened {
 
 .calendar-section .section-copy > p:not(.kicker) {
   max-width: 20rem;
-  font-size: clamp(1.15rem, 4vw, 1.7rem);
+  font-size: clamp(1.4rem, 5vw, 2rem);
   line-height: 1.8;
   white-space: normal;
 }
@@ -2776,6 +2785,88 @@ footer {
 .content > .rsvp-section { order: 7; }
 .content > .details-section { order: 8; }
 .content > footer { order: 9; }
+
+/* Timing reference layout */
+.timeline-section {
+  padding: 5rem 1.5rem !important;
+  background: var(--warm-ivory) !important;
+}
+
+.timeline-section .section-copy .kicker,
+.timeline-section .section-copy h2 em,
+.timeline-section .section-copy h2[data-shadow]::before,
+.timeline-section .timeline-icon,
+.timeline-section .timeline-list article > span,
+.timeline-section .countdown {
+  display: none !important;
+}
+
+.timeline-list::before {
+  display: none !important;
+}
+
+.timeline-section .section-copy h2 {
+  color: var(--charcoal) !important;
+  font-family: 'ArTarumianBarakU Bold', sans-serif !important;
+  font-size: clamp(3rem, 12vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.timeline-list {
+  display: flex !important;
+  flex-direction: column;
+  gap: 3.6rem;
+  width: min(100%, 20rem) !important;
+  margin: 4rem auto 0 !important;
+}
+
+.timeline-list article,
+.timeline-list article:last-child {
+  display: block !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+}
+
+.timeline-event,
+.timeline-list article:nth-child(even) .timeline-event,
+.timeline-list article:nth-child(odd) .timeline-event {
+  display: flex !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+.timeline-list time {
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  color: var(--charcoal) !important;
+  font-family: 'ArTarumianBarakU', sans-serif;
+  font-size: clamp(3rem, 11vw, 4.6rem) !important;
+  font-weight: 300 !important;
+  line-height: 0.9;
+}
+
+.timeline-list h3 {
+  max-width: 15rem;
+  margin: 0.8rem auto 0 !important;
+  color: var(--taupe-gray) !important;
+  font-family: 'ArTarumianBarakU', sans-serif !important;
+  font-size: 1.1rem !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  text-transform: none !important;
+}
+
+.timeline-list p {
+  display: none;
+}
 
 /* Keep Warm Ivory continuous across the entire opened page */
 body,

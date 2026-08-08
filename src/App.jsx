@@ -17,6 +17,7 @@ import churchIcon from './assets/pics/churchlogo.png';
 import servantIcon from './assets/pics/servant.png';
 import leLogo from './assets/pics/LElogo.png';
 import elenAndLyovLogo from './assets/pics/ElenAndLyovLogopng.png';
+import handsImage from './assets/pics/hands.jpg';
 import musicTrack from './musics/Stephen-Sanchez-Until-I-Found-You.m4a';
 
 const timelineIcons = [brideIcon, churchIcon, servantIcon];
@@ -129,6 +130,7 @@ export default function App() {
   const audioRef = useRef(null);
   const { couple, wedding, cover, hero, events, notes, rsvp, gallery, location, timing } = config;
   const visibleEvents = events.filter(event => event.enabled !== false);
+  const timingItems = visibleEvents.map(event => ({ time: event.time, title: event.title }));
   const dateParts = wedding.displayDate.split(' · ');
 
   function openInvitation() {
@@ -332,8 +334,7 @@ export default function App() {
         <section className="memory-section" aria-label={gallery.imageAlt}>
           <div className="memory-frame">
             <img src={gallery.image} alt={gallery.imageAlt} loading="lazy" />
-            <img className="memory-detail" src={events[0].image} alt={events[0].imageAlt} loading="lazy" />
-            <span aria-hidden="true">{couple.initials?.partnerOne || 'H'}<i>&amp;</i>{couple.initials?.partnerTwo || 'O'}</span>
+            <img className="memory-detail" src={handsImage} alt="Hands reaching for each other" loading="lazy" />
           </div>
         </section>
 
@@ -353,11 +354,11 @@ export default function App() {
         <section className="timeline-section section">
           <div className="section-copy">
             <p className="kicker">{timing.kicker}</p>
-            <h2 data-shadow="Timing">Timing<em>special</em></h2>
+            <h2 data-shadow="Ժամանակացույց">Ժամանակացույց<em>special</em></h2>
           </div>
           <div className="timeline-list">
-            {visibleEvents.map((event, index) => (
-              <article key={event.id}>
+            {timingItems.map((event, index) => (
+              <article key={`${event.time}-${index}`}>
                 <div className="timeline-event">
                   <span className="timeline-icon" aria-hidden="true">
                     <img className="timeline-icon-image" src={timelineIcons[index]} alt="" />
