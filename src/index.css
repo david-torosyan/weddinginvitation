@@ -5,6 +5,12 @@
   src: url('./fonts/SHK_Dzeragir.otf') format('opentype');
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'ArTarumianBarakU';
+  src: url('./fonts/ArTarumianBarakU-Regular.ttf') format('truetype');
+  font-display: swap;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -2232,6 +2238,8 @@ body.opened {
 .content {
   background: var(--soft-white) !important;
   color: var(--charcoal);
+  display: flex;
+  flex-direction: column;
 }
 
 .content > section,
@@ -2411,6 +2419,32 @@ body.opened {
   box-shadow: none;
 }
 
+.calendar-card {
+  display: none;
+}
+
+.calendar-date-display {
+  margin: 2.4rem 0 0;
+  color: var(--charcoal);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2.4rem, 9vw, 4.2rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+.calendar-section .section-copy h2 {
+  font-size: clamp(2.3rem, 9vw, 4rem);
+  font-weight: 300;
+  line-height: 1.05;
+}
+
+.calendar-section .section-copy > p:not(.kicker) {
+  max-width: 17rem;
+  margin-inline: auto;
+  font-size: 0.72rem;
+  line-height: 1.75;
+}
+
 .calendar-love-symbol {
   display: none;
 }
@@ -2426,6 +2460,35 @@ body.opened {
   margin-inline: auto;
   border-radius: 0;
   box-shadow: none;
+}
+
+.memory-frame {
+  width: min(100%, 22rem);
+  aspect-ratio: 0.74;
+  overflow: visible;
+}
+
+.memory-frame > img:first-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 78%;
+  height: 68%;
+  object-fit: cover;
+}
+
+.memory-frame .memory-detail {
+  position: absolute;
+  right: 0;
+  top: 42%;
+  z-index: 2;
+  width: 70%;
+  height: 42%;
+  object-fit: cover;
+}
+
+.memory-frame > span {
+  display: none;
 }
 
 .places-section,
@@ -2537,12 +2600,152 @@ body.opened {
   border-bottom: 1px solid var(--warm-stone);
 }
 
+/* Smooth continuous sections — no boxed card treatment */
+.calendar-card,
+.event-card,
+.timeline-event,
+.countdown,
+.rsvp-panel,
+.calendar-love-symbol {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.event-card {
+  border-bottom: 0 !important;
+}
+
+.details-grid article {
+  border-bottom: 0;
+}
+
+.event-media {
+  border-radius: 0 !important;
+}
+
+/* Remove remaining decorative blocks and layered shapes */
+.calendar-section {
+  margin: 0 !important;
+  padding: 5rem 1.5rem 2rem !important;
+  border-radius: 0 !important;
+  background: var(--warm-ivory) !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  text-align: center;
+}
+
+.calendar-section .section-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 28rem;
+  margin-inline: auto;
+  padding: 0;
+  text-align: center;
+}
+
+.calendar-section .section-copy .kicker {
+  display: none !important;
+}
+
+.calendar-section .section-copy h2,
+.calendar-section .section-copy > p:not(.kicker),
+.calendar-date-display {
+  width: 100%;
+  text-align: center;
+}
+
+.calendar-section .section-copy,
+.calendar-date-display {
+  position: relative;
+  left: 50%;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  transform: translateX(-50%);
+}
+
+.calendar-section .section-copy .kicker {
+  color: var(--antique-brown) !important;
+  font-family: var(--script);
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+}
+
+.calendar-section .section-copy h2 {
+  margin-top: 1.1rem;
+  font-family: var(--script);
+  font-size: clamp(2.6rem, 10vw, 4.6rem);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.calendar-section .section-copy > p:not(.kicker) {
+  max-width: 19rem;
+  margin-top: 1.2rem;
+  text-align: center;
+}
+
+.calendar-date-display {
+  margin: 4.5rem auto 0;
+  text-align: center;
+}
+
+.memory-section {
+  padding-top: 1rem !important;
+}
+
+.memory-frame {
+  max-width: 18rem;
+  margin-inline: auto;
+}
+
+.calendar-section .section-copy .kicker,
+.calendar-section .section-copy h2,
+.calendar-section .section-copy > p:not(.kicker),
+.calendar-date-display {
+  font-family: 'ArTarumianBarakU', sans-serif !important;
+}
+
+.calendar-section::after,
+.rsvp-section::before,
+.rsvp-panel::before,
+.rsvp-panel::after,
+.memory-frame::before,
+.memory-frame::after,
+.closing-photo-frame::before,
+.closing-photo-frame::after {
+  display: none !important;
+}
+
+.memory-frame,
+.closing-photo-frame {
+  border: 0 !important;
+  background: transparent !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 footer {
   padding: 3rem 2rem;
   background: var(--deep-forest) !important;
   color: var(--soft-white);
   text-align: center;
 }
+
+/* Reference sequence after the hero */
+.content > .hero { order: 1; }
+.content > .calendar-section { order: 2; }
+.content > .memory-section { order: 3; }
+.content > .timeline-section { order: 4; }
+.content > .places-section { order: 5; }
+.content > .closing-photo { order: 6; }
+.content > .rsvp-section { order: 7; }
+.content > .details-section { order: 8; }
+.content > footer { order: 9; }
 
 /* Keep Warm Ivory continuous across the entire opened page */
 body,

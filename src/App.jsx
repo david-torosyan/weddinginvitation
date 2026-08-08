@@ -90,6 +90,8 @@ function WeddingCalendar() {
         </div>
       </div>
 
+      <p className="calendar-date-display">{wedding.displayDate}</p>
+
       <div className="calendar-love-symbol" aria-hidden="true">
         <img src={loveSymbolImage} alt="" loading="lazy" />
       </div>
@@ -330,6 +332,7 @@ export default function App() {
         <section className="memory-section" aria-label={gallery.imageAlt}>
           <div className="memory-frame">
             <img src={gallery.image} alt={gallery.imageAlt} loading="lazy" />
+            <img className="memory-detail" src={events[0].image} alt={events[0].imageAlt} loading="lazy" />
             <span aria-hidden="true">{couple.initials?.partnerOne || 'H'}<i>&amp;</i>{couple.initials?.partnerTwo || 'O'}</span>
           </div>
         </section>
