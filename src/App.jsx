@@ -312,15 +312,15 @@ export default function App() {
       <main className={opened ? 'content visible' : 'content'}>
         <section className="hero">
           <div className="hero-overlay">
-            <p className="hero-day">Wedding Day</p>
+            <p className="hero-day" aria-hidden="true" />
             <div className="hero-photo">
               <img src={hero.image} alt={hero.imageAlt} />
               <div className="hero-date" aria-label={wedding.displayDate}>
                 {dateParts.map(part => <span key={part}>{part}</span>)}
               </div>
             </div>
-            <h1>{couple.partnerOne}<span>&amp;</span>{couple.partnerTwo}</h1>
-            <p className="hero-invitation">{hero.invitationText}</p>
+            <img className="hero-logo" src={leLogo} alt="Lyov and Elen" />
+            <p className="hero-invitation">{wedding.displayDate}</p>
           </div>
         </section>
 
