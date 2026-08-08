@@ -2848,7 +2848,7 @@ footer {
   background: transparent !important;
   color: var(--charcoal) !important;
   font-family: 'ArTarumianBarakU', sans-serif;
-  font-size: clamp(3rem, 11vw, 4.6rem) !important;
+  font-size: clamp(3.6rem, 14vw, 5.8rem) !important;
   font-weight: 300 !important;
   line-height: 0.9;
 }
@@ -2858,7 +2858,7 @@ footer {
   margin: 0.8rem auto 0 !important;
   color: var(--taupe-gray) !important;
   font-family: 'ArTarumianBarakU', sans-serif !important;
-  font-size: 1.1rem !important;
+  font-size: 1.45rem !important;
   font-weight: 400 !important;
   line-height: 1.5 !important;
   text-transform: none !important;
