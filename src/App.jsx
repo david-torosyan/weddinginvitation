@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  ArrowDown,
   ArrowUpRight,
   CalendarDays,
   CheckCircle2,
@@ -16,6 +15,7 @@ import loveSymbolImage from './assets/pics/loveSymbol.png';
 import brideIcon from './assets/pics/bride.png';
 import churchIcon from './assets/pics/churchlogo.png';
 import servantIcon from './assets/pics/servant.png';
+import leLogo from './assets/pics/LElogo.png';
 import musicTrack from './musics/Stephen-Sanchez-Until-I-Found-You.m4a';
 
 const timelineIcons = [brideIcon, churchIcon, servantIcon];
@@ -301,12 +301,9 @@ export default function App() {
               <img src={cover.image} alt={cover.imageAlt} />
             </div>
             <div className="cover-content">
-              <p className="cover-date">{wedding.displayDate}</p>
-              <h1>{couple.partnerOne}<span>&amp;</span>{couple.partnerTwo}</h1>
-              <p>{cover.note}</p>
-              <button onClick={openInvitation} type="button">
-                {cover.buttonText}<ArrowDown size={18} />
-              </button>
+              <p className="cover-date">LYOV <span>&amp;</span> ELEN</p>
+              <img className="cover-logo" src={leLogo} alt="Lyov and Elen" />
+              <button onClick={openInvitation} type="button">Բացել</button>
             </div>
           </div>
         </section>

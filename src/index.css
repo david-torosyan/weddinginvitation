@@ -1,22 +1,38 @@
 @import './assets/styles/fonts.css';
+
+@font-face {
+  font-family: 'SHK Dzeragir Opening';
+  src: url('./fonts/SHK_Dzeragir.otf') format('opentype');
+  font-display: swap;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --paper: #fbf6f0;
-  --paper-strong: #f2e7dc;
-  --paper-soft: #fffdfa;
-  --ink: #201d1b;
-  --night: #191715;
-  --brown: #8b5f4d;
-  --brown-deep: #6f4738;
-  --brown-soft: #d7b8a3;
-  --muted: #746a63;
-  --line: rgba(32, 29, 27, 0.12);
-  --line-strong: rgba(32, 29, 27, 0.2);
-  --shadow-soft: 0 20px 44px rgba(48, 36, 28, 0.08);
-  --shadow-card: 0 30px 70px rgba(43, 31, 22, 0.12);
+  --warm-ivory: #F5F1E8;
+  --soft-cream: #E9E1D2;
+  --deep-forest: #18221D;
+  --muted-olive: #68705B;
+  --sage: #9A9D85;
+  --antique-brown: #80654A;
+  --warm-stone: #C5B49C;
+  --charcoal: #292B27;
+  --taupe-gray: #777268;
+  --soft-white: #FAF8F3;
+  --paper: #F5F1E8;
+  --paper-strong: #E9E1D2;
+  --paper-soft: #FAF8F3;
+  --ink: #292B27;
+  --night: #18221D;
+  --brown: #80654A;
+  --brown-deep: #18221D;
+  --brown-soft: #C5B49C;
+  --muted: #777268;
+  --line: rgba(41, 43, 39, 0.14);
+  --line-strong: rgba(41, 43, 39, 0.24);
+  --shadow-soft: 0 20px 44px rgba(24, 34, 29, 0.12);
+  --shadow-card: 0 30px 70px rgba(24, 34, 29, 0.18);
   --radius-xl: 34px;
   --radius-lg: 24px;
   --radius-md: 18px;
@@ -41,16 +57,16 @@ body {
   margin: 0;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at top, rgba(215, 184, 163, 0.22), transparent 32%),
-    linear-gradient(180deg, #ebe3db 0%, #e4dbd3 100%);
+    radial-gradient(circle at top, rgba(154, 157, 133, 0.28), transparent 32%),
+    linear-gradient(180deg, #E9E1D2 0%, #C5B49C 100%);
   color: var(--ink);
   font-family: var(--text);
 }
 
 body.opened {
   background:
-    radial-gradient(circle at top, rgba(215, 184, 163, 0.22), transparent 32%),
-    linear-gradient(180deg, #ebe3db 0%, #e4dbd3 100%);
+    radial-gradient(circle at top, rgba(154, 157, 133, 0.28), transparent 32%),
+    linear-gradient(180deg, #E9E1D2 0%, #C5B49C 100%);
 }
 
 button,
@@ -2044,4 +2060,170 @@ footer small {
     opacity: 1;
     transform: none;
   }
+}
+
+/* Reference-style monochrome opening cover */
+.cover {
+  min-height: 100svh;
+  padding: 0;
+  background: #000;
+}
+
+.cover-panel {
+  position: relative;
+  width: min(100%, 840px);
+  min-height: 100svh;
+  display: block;
+  border: 0;
+  border-radius: 0;
+  background: #000;
+  box-shadow: none;
+}
+
+.cover-art {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+  background: #444;
+}
+
+.cover-art::after {
+  background: rgba(0, 0, 0, 0.38);
+}
+
+.cover-art img {
+  filter: saturate(0.78) sepia(0.08) contrast(1.02);
+}
+
+.cover-content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  padding: clamp(4rem, 10vh, 7rem) 1.5rem 8vh;
+  color: #fff;
+  text-align: center;
+}
+
+.cover-date {
+  color: #f5f5f5;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(1.35rem, 3.2vw, 2.3rem);
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+.cover-date span {
+  font-style: normal;
+}
+
+.cover-logo {
+  width: clamp(13rem, 44vw, 25rem);
+  height: auto;
+  margin-top: clamp(6rem, 18vh, 12rem);
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.08);
+}
+
+.cover button {
+  min-width: min(70vw, 420px);
+  min-height: 68px;
+  margin-top: clamp(3.5rem, 12vh, 8rem);
+  border: 2px solid #fff;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 700;
+}
+
+.cover button:hover {
+  background: #fff;
+  color: #111;
+  box-shadow: none;
+  filter: none;
+}
+
+/* Exact wedding palette overrides */
+body,
+body.opened {
+  background: var(--deep-forest);
+}
+
+.invite-shell {
+  border-color: var(--warm-stone);
+  background: var(--warm-ivory);
+  box-shadow: 0 36px 100px rgba(24, 34, 29, 0.3);
+}
+
+.hero,
+.calendar-section,
+.rsvp-section,
+.details-section {
+  background: var(--warm-ivory) !important;
+}
+
+.places-section,
+.memory-section,
+.closing-photo {
+  background: var(--soft-cream) !important;
+}
+
+.timeline-section {
+  background: var(--deep-forest) !important;
+  color: var(--soft-white);
+}
+
+.timeline-section .section-copy h2,
+.timeline-section .timeline-list h3,
+.timeline-section .timeline-list p,
+.timeline-section .countdown p {
+  color: var(--soft-white);
+}
+
+.calendar-card,
+.event-card,
+.timeline-event,
+.countdown,
+.rsvp-panel,
+.calendar-love-symbol {
+  border-color: var(--warm-stone) !important;
+  background: var(--soft-white) !important;
+}
+
+.calendar-day.selected,
+.timeline-list time,
+.countdown-unit,
+.rsvp-section button,
+.text-link {
+  background: var(--muted-olive) !important;
+}
+
+.kicker,
+.hero-day,
+.event-time,
+.event-address svg,
+.section-copy h2 em,
+.calendar-heading span,
+.calendar-weekdays,
+.countdown p,
+.timeline-icon {
+  color: var(--antique-brown) !important;
+}
+
+.section-copy h2[data-shadow]::before {
+  color: rgba(104, 112, 91, 0.16) !important;
+}
+
+.cover-art img,
+.hero-photo img,
+.event-media img,
+.memory-frame img,
+.closing-photo-frame img {
+  filter: saturate(0.78) sepia(0.06) contrast(1.02) !important;
 }
