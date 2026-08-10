@@ -2760,6 +2760,8 @@ body.opened {
 .calendar-date-display {
   width: min(100%, 31rem) !important;
   margin: 3rem auto 0 !important;
+  position: relative;
+  left: auto !important;
   color: var(--charcoal);
   font-family: var(--display) !important;
   font-size: 1rem !important;
@@ -2824,6 +2826,62 @@ body.opened {
   line-height: 1;
 }
 
+.rsvp-countdown {
+  width: min(100%, 23rem);
+  margin: 0 auto 3.1rem;
+  padding: 0;
+  border: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.rsvp-section button {
+  margin-top: 1.5rem;
+  box-shadow: none !important;
+}
+
+.rsvp-countdown > p {
+  margin-bottom: 0.85rem;
+  color: var(--antique-brown) !important;
+  font-family: var(--script);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.rsvp-countdown .countdown-grid {
+  gap: 0.35rem;
+}
+
+.rsvp-countdown .countdown-unit {
+  min-height: 4.5rem;
+  padding: 0.8rem 0.25rem;
+  border: 1px solid var(--warm-stone);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.5) !important;
+}
+
+.rsvp-countdown .countdown-unit strong {
+  color: var(--deep-forest);
+  font-family: var(--script);
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.rsvp-countdown .countdown-unit small {
+  color: var(--muted-olive);
+  font-family: var(--display);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+}
+
+.rsvp-section .section-copy .kicker,
+.rsvp-section .section-copy h2::after {
+  display: none !important;
+  content: none !important;
+}
+
 .date-rail-day.selected {
   color: var(--soft-white);
   background: var(--deep-forest);
@@ -2844,6 +2902,31 @@ body.opened {
   font-style: normal;
   letter-spacing: 0.08em;
   white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .calendar-date-display {
+    width: min(100%, 22rem) !important;
+    margin-top: 2.2rem !important;
+  }
+
+  .date-rail-heading {
+    margin-bottom: 0.65rem;
+    font-size: 1.25rem;
+  }
+
+  .date-rail {
+    gap: 0.2rem;
+    padding: 0.35rem;
+  }
+
+  .date-rail-day {
+    min-height: 4.7rem;
+  }
+
+  .date-rail-day strong {
+    font-size: 1.45rem;
+  }
 }
 
 .calendar-section::after,

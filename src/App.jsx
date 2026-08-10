@@ -21,7 +21,7 @@ const timelineIcons = [brideIcon, churchIcon, servantIcon];
 
 const formatNumber = value => String(value).padStart(2, '0');
 
-function Countdown() {
+function Countdown({ className = '' }) {
   const { countdown, wedding } = config;
   const { labels } = countdown;
   const t = useCountdown(wedding.date);
@@ -33,7 +33,7 @@ function Countdown() {
   ];
 
   return (
-    <div className="countdown" aria-label={countdown.heading}>
+    <div className={`countdown ${className}`.trim()} aria-label={countdown.heading}>
       <p>{countdown.heading}</p>
       <div className="countdown-grid">
         {units.map(unit => (
@@ -407,10 +407,10 @@ export default function App() {
         {rsvp.enabled && (
           <section className="rsvp-section section" id="rsvp">
             <div className="rsvp-panel">
+              <Countdown className="rsvp-countdown" />
               <div className="section-copy">
                 <p className="kicker">{rsvp.kicker}</p>
                 <h2 data-shadow={rsvp.heading}>{rsvp.heading}</h2>
-                <p>{rsvp.description}</p>
               </div>
 
               {sent ? (
@@ -448,7 +448,6 @@ export default function App() {
                   </label>
                   <button disabled={busy} type="submit">
                     {busy ? rsvp.sendingText : rsvp.submitButtonText}
-                    {!busy && <Heart size={16} fill="currentColor" />}
                   </button>
                   <p className="form-status" aria-live="polite">{status}</p>
                 </form>

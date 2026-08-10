@@ -18,7 +18,7 @@ export const weddingConfig = {
   },
   couple: { partnerOne: 'Էլեն', partnerTwo: 'Լյովա', combinedName: 'ԷԼԵՆ & ԼՅՈՎԱ', initials: { partnerOne: 'Է', partnerTwo: 'Լ' } },
   wedding: {
-    date: '2026-10-25T14:00:00+04:00', displayDate: '20 · 10 · 2026', longDate: 'Կիրակի · 25 Հոկտեմբեր · 2026',
+    date: '2026-10-25T14:00:00+04:00', displayDate: '20 · 10 · 2026', longDate: 'Երեքշաբթի · 20 Հոկտեմբեր · 2026',
     locale: 'hy-AM', timezone: 'Asia/Yerevan', rsvpDeadline: '2026-10-15T23:59:59+04:00',
   },
   cover: { note: 'A day to remember', buttonText: 'Բացել հրավերը', image: '/pics/elenlyov.jpg', imageAlt: 'Հարսանյաց վայրի նկարազարդում' },
@@ -44,7 +44,7 @@ export const weddingConfig = {
     ]
   },
   rsvp: {
-    enabled: true, kicker: 'RSVP', heading: 'Կմիանա՞ք մեզ', description: 'Խնդրում ենք հաստատել Ձեր ներկայությունը մինչև 15 Հոկտեմբեր, 2026։',
+    enabled: true, kicker: 'RSVP', heading: 'Խնդրում ենք հաստատել Ձեր ներկայությունը', description: '',
     namePlaceholder: 'Ձեր անունը', guestCountPlaceholder: 'Հյուրերի քանակը', attendancePlaceholder: 'Կմասնակցե՞ք', invitedByPlaceholder: 'Ում կողմից եք հրավիրված',
     invitedByOptions: [{ value: 'bride', label: 'Հարսի կողմից' }, { value: 'groom', label: 'Փեսայի կողմից' }],
     attendanceOptions: [{ value: 'yes', label: 'Այո, սիրով կմասնակցեմ' }, { value: 'no', label: 'Ցավոք, չեմ կարողանա մասնակցել' }],
