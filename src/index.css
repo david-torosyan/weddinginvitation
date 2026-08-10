@@ -3005,11 +3005,10 @@ footer {
 .content > .calendar-section { order: 2; }
 .content > .memory-section { order: 3; }
 .content > .timeline-section { order: 4; }
-.content > .places-section { order: 5; }
-.content > .closing-photo { order: 6; }
-.content > .rsvp-section { order: 7; }
-.content > .details-section { order: 8; }
-.content > footer { order: 9; }
+.content > .closing-photo { order: 5; }
+.content > .rsvp-section { order: 6; }
+.content > .details-section { order: 7; }
+.content > footer { order: 8; }
 
 /* Timing reference layout */
 .timeline-section {
@@ -3127,4 +3126,95 @@ body.opened,
 
 .content > footer {
   color: var(--charcoal);
+}
+
+.section-copy h2::before,
+.section-copy h2::after {
+  display: none !important;
+  content: none !important;
+}
+
+.timeline-list {
+  gap: clamp(3rem, 9vw, 4.8rem) !important;
+  width: min(100%, 28rem) !important;
+  margin-top: 3.5rem !important;
+}
+
+.timeline-card {
+  display: block !important;
+  width: 100%;
+}
+
+.timeline-media {
+  width: 100%;
+  aspect-ratio: 1.18;
+  overflow: hidden;
+  border-radius: 0;
+  background: var(--soft-cream);
+}
+
+.timeline-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.timeline-event::before {
+  display: none !important;
+  content: none !important;
+}
+
+.timeline-card .timeline-event {
+  gap: 0;
+  padding-top: 1.25rem !important;
+}
+
+.timeline-card time {
+  margin-top: 0 !important;
+  font-family: 'ArTarumianBarakU Bold', sans-serif !important;
+  font-size: clamp(2.4rem, 9vw, 3.4rem) !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+
+.timeline-card h3 {
+  margin-top: 0.45rem !important;
+  font-size: clamp(1.45rem, 5vw, 1.8rem) !important;
+  line-height: 1.18 !important;
+}
+
+.timeline-list .timeline-address-title,
+.timeline-list .timeline-address {
+  display: flex !important;
+}
+
+.timeline-list .timeline-address-title {
+  justify-content: center;
+  max-width: 22rem;
+  margin: 0.25rem auto 0 !important;
+  color: var(--charcoal) !important;
+  font-family: 'ArTarumianBarakU Bold', sans-serif !important;
+  font-size: clamp(1.45rem, 5vw, 1.8rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.18 !important;
+}
+
+.timeline-list .timeline-address {
+  justify-content: center;
+  max-width: 20rem;
+  margin: 0.25rem auto 0 !important;
+  color: var(--taupe-gray) !important;
+  font-family: 'ArTarumianBarakU', sans-serif !important;
+  font-size: 1rem !important;
+  line-height: 1.35 !important;
+}
+
+.timeline-address svg {
+  display: none;
+}
+
+.timeline-card .text-link {
+  margin-top: 0.75rem;
 }

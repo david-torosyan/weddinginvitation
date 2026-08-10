@@ -2,23 +2,17 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowUpRight,
   CheckCircle2,
-  Clock3,
   Heart,
   MapPin,
 } from 'lucide-react';
 import { useCountdown } from './hooks/useCountdown';
 import { submitRsvp } from './services/rsvpService';
 import { weddingConfig as config } from './config/weddingConfig';
-import brideIcon from './assets/pics/bribehouse.png';
-import churchIcon from './assets/pics/church.png';
-import servantIcon from './assets/pics/restorant.png';
 import leLogo from './assets/pics/LElogo.png';
 import elenAndLyovLogo from './assets/pics/ElenAndLyovLogopng.png';
 import handsImage from './assets/pics/hands.jpg';
 import iranqImage from './assets/pics/iranq.jpg';
 import musicTrack from './musics/Stephen-Sanchez-Until-I-Found-You.m4a';
-
-const timelineIcons = [brideIcon, churchIcon, servantIcon];
 
 const formatNumber = value => String(value).padStart(2, '0');
 
@@ -65,7 +59,7 @@ function WeddingCalendar() {
     <section className="calendar-section section" id="date">
       <div className="section-copy">
         <p className="kicker">{calendar.kicker}</p>
-        <h2 data-shadow={calendar.heading}>{calendar.heading}</h2>
+        <h2>{calendar.heading}</h2>
         <p>{calendar.description.split('։')[0]}։</p>
       </div>
 
@@ -116,32 +110,6 @@ function WeddingCalendar() {
   );
 }
 
-function EventCard({ event, mapButtonText, minimal = false }) {
-  const title = minimal ? event.addressTitle || event.title : event.title;
-
-  return (
-    <article className="event-card">
-      <div className={`event-media event-media-${event.id}`}>
-        <img src={event.image} alt={event.imageAlt || event.title} loading="lazy" />
-        <span>{event.number}</span>
-      </div>
-      <div className="event-content">
-        <h3>{title}</h3>
-        {!minimal && <>
-          <p className="event-time"><Clock3 size={17} />{event.time}</p>
-          <p className="event-venue">{event.venue}</p>
-          <p className="event-address"><MapPin size={16} />{event.address}</p>
-        </>}
-        {event.mapUrl && (
-          <a className="text-link" href={event.mapUrl} target="_blank" rel="noreferrer">
-            {mapButtonText}<ArrowUpRight size={16} />
-          </a>
-        )}
-      </div>
-    </article>
-  );
-}
-
 export default function App() {
   const [opened, setOpened] = useState(true);
   const [sent, setSent] = useState(false);
@@ -150,11 +118,6 @@ export default function App() {
   const audioRef = useRef(null);
   const { couple, wedding, cover, hero, events, rsvp, gallery, location, timing, appearance } = config;
   const visibleEvents = events.filter(event => event.enabled !== false);
-  const timingItems = visibleEvents.map(event => ({
-    time: event.time,
-    title: event.timelineTitle || event.title,
-    venue: event.venue,
-  }));
   const dateParts = wedding.displayDate.split(' · ');
 
   function openInvitation() {
@@ -362,17 +325,6 @@ export default function App() {
           </div>
         </section>
 
-        <section className="places-section section" id="places">
-          <div className="section-copy">
-            <h2 data-shadow="Հասցեներ">Հասցեներ</h2>
-          </div>
-          <div className="event-list">
-            {visibleEvents.map(event => (
-              <EventCard event={event} key={event.id} mapButtonText={location.mapButtonText} minimal />
-            ))}
-          </div>
-        </section>
-
         <section
           className="timeline-section section"
           style={{
@@ -384,20 +336,25 @@ export default function App() {
         >
           <div className="section-copy">
             <p className="kicker">{timing.kicker}</p>
-            <h2 data-shadow="Օրվա ծրագիր">Օրվա ծրագիր</h2>
+            <h2>Օրվա ծրագիրը</h2>
           </div>
           <div className="timeline-list">
-            {timingItems.map((event, index) => (
-              <article key={`${event.time}-${index}`}>
-                <div className="timeline-event">
-                  <span className="timeline-icon" aria-hidden="true">
-                    <img className="timeline-icon-image" src={timelineIcons[index]} alt="" />
-                  </span>
-                  <time>{event.time}</time>
-                  <h3>{event.title}</h3>
-                  <p>{event.venue}</p>
+            {visibleEvents.map(event => (
+              <article className="timeline-card" key={event.id}>
+                <div className={`timeline-media event-media-${event.id}`}>
+                  <img src={event.image} alt={event.imageAlt || event.title} loading="lazy" />
                 </div>
-                <span aria-hidden="true" />
+                <div className="timeline-event">
+                  <time>{event.time}</time>
+                  <h3>{event.timelineTitle || event.title}</h3>
+                  <p className="timeline-address-title">{event.addressTitle || event.venue}</p>
+                  <p className="timeline-address">{event.address}</p>
+                  {event.mapUrl && (
+                    <a className="text-link" href={event.mapUrl} target="_blank" rel="noreferrer">
+                      <MapPin size={16} />{location.mapButtonText}<ArrowUpRight size={16} />
+                    </a>
+                  )}
+                </div>
               </article>
             ))}
           </div>
@@ -417,7 +374,7 @@ export default function App() {
               <Countdown className="rsvp-countdown" />
               <div className="section-copy">
                 <p className="kicker">{rsvp.kicker}</p>
-                <h2 data-shadow={rsvp.heading}>{rsvp.heading}</h2>
+                <h2>{rsvp.heading}</h2>
               </div>
 
               {sent ? (
