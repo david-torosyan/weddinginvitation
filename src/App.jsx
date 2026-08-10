@@ -88,7 +88,25 @@ function WeddingCalendar() {
         </div>
       </div>
 
-      <p className="calendar-date-display">{wedding.displayDate}</p>
+      <div className="calendar-date-display" aria-label="Հոկտեմբեր 2026, հարսանիքի օրը՝ հոկտեմբերի 20-ին">
+        <div className="date-rail-heading">
+          <span>Մեր Հոկտեմբերը</span>
+        </div>
+        <div className="date-rail" role="list">
+          {[
+            ['18', 'Կիր'],
+            ['19', 'Երկ'],
+            ['20', 'Երք'],
+            ['21', 'Չոր'],
+            ['22', 'Հնգ'],
+          ].map(([day, weekday]) => (
+            <span className={day === '20' ? 'date-rail-day selected' : 'date-rail-day'} key={day} role="listitem">
+              <small>{weekday}</small>
+              <strong>{day}</strong>
+            </span>
+          ))}
+        </div>
+      </div>
 
       <div className="calendar-love-symbol" aria-hidden="true">
         <Heart size={42} strokeWidth={1.25} />

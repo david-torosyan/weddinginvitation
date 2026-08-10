@@ -2757,6 +2757,95 @@ body.opened {
   font-size: clamp(3.2rem, 10vw, 6rem);
 }
 
+.calendar-date-display {
+  width: min(100%, 31rem) !important;
+  margin: 3rem auto 0 !important;
+  color: var(--charcoal);
+  font-family: var(--display) !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  letter-spacing: normal;
+  transform: none !important;
+}
+
+.date-rail-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+  color: var(--deep-forest);
+  font-family: var(--script);
+  font-size: 1.45rem;
+  letter-spacing: 0.05em;
+}
+
+.date-rail-heading small {
+  color: var(--muted-olive);
+  font-family: var(--display);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+}
+
+.date-rail {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.45rem;
+  padding: 0.55rem;
+  border: 1px solid rgba(104, 112, 91, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow: 0 16px 32px rgba(43, 31, 22, 0.08);
+}
+
+.date-rail-day {
+  position: relative;
+  display: grid;
+  min-height: 5.4rem;
+  place-items: center;
+  align-content: center;
+  gap: 0.14rem;
+  border-radius: 999px;
+  color: var(--taupe-gray);
+  transition: background 220ms ease, color 220ms ease, transform 220ms ease;
+}
+
+.date-rail-day small {
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.date-rail-day strong {
+  color: var(--charcoal);
+  font-family: var(--script);
+  font-size: clamp(1.45rem, 5vw, 2rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.date-rail-day.selected {
+  color: var(--soft-white);
+  background: var(--deep-forest);
+  box-shadow: 0 10px 22px rgba(24, 34, 29, 0.22);
+  transform: translateY(-0.25rem);
+}
+
+.date-rail-day.selected strong {
+  color: var(--soft-white);
+}
+
+.date-rail-day em {
+  position: absolute;
+  bottom: -0.9rem;
+  color: var(--antique-brown);
+  font-family: var(--display);
+  font-size: 0.52rem;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
 .calendar-section::after,
 .rsvp-section::before,
 .rsvp-panel::before,
