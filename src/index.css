@@ -2840,6 +2840,19 @@ body.opened {
   box-shadow: none !important;
 }
 
+.rsvp-section input,
+.rsvp-section select {
+  font-family: var(--display);
+  font-weight: 700;
+}
+
+.rsvp-section input::placeholder {
+  color: var(--charcoal);
+  font-family: var(--display);
+  font-weight: 700;
+  opacity: 1;
+}
+
 .rsvp-countdown > p {
   margin-bottom: 0.85rem;
   color: var(--antique-brown) !important;

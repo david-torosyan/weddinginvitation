@@ -64,3 +64,16 @@ weddingConfig.events[4].image = restorantImage;
 weddingConfig.events[2].venue = 'Ադանա ռեստորանային համալիր';
 weddingConfig.events[2].address = 'Ադանա ռեստորանային համալիր';
 weddingConfig.events[2].mapUrl = 'https://www.google.com/maps/search/?api=1&query=Adana+restaurant+complex+Armenia';
+
+weddingConfig.events[0].title = 'Աղաբաբյան հյուրանոց';
+weddingConfig.events[0].venue = 'Աղաբաբյան հյուրանոց';
+weddingConfig.events[0].mapUrl = 'https://www.google.com/maps/search/?api=1&query=Aghababyan+Hotel';
+weddingConfig.events[1].mapUrl = 'https://maps.app.goo.gl/gG79oo6hbpifjj3x9';
+weddingConfig.events[2].title = 'Սուրբ Հռիփսիմե եկեղեցի';
+weddingConfig.events[2].venue = 'Սուրբ Հռիփսիմե եկեղեցի';
+weddingConfig.events[2].address = 'Վաղարշապատ, Արմավիրի մարզ';
+weddingConfig.events[2].mapUrl = 'https://maps.app.goo.gl/Jhmcnppv7jZTXvpp9';
+weddingConfig.events[3].title = 'Սուրբ Հռիփսիմե եկեղեցի';
+weddingConfig.events[3].venue = 'Սուրբ Հռիփսիմե եկեղեցի';
+weddingConfig.events[3].address = 'Վաղարշապատ, Արմավիրի մարզ';
+weddingConfig.events[3].mapUrl = 'https://maps.app.goo.gl/Jhmcnppv7jZTXvpp9';
