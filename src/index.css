@@ -7,6 +7,38 @@
   font-weight: 100 900;
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'Gellovik';
+  src: url('./fonts/Gellovik-Regular (1).otf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CataneoBTRegular';
+  src: url('./fonts/1 Cataneo BT Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AverItalic';
+  src: url('./fonts/AverItalic-e4Wn.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GellovikRegularOne';
+  src: url('./fonts/Gellovik-Regular (1).otf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -43,6 +75,18 @@
   --display: 'ArmenianDecorativeU', serif;
   --script: 'ArmenianDecorativeU', serif;
   --text: 'ArmenianDecorativeU', serif;
+}
+
+html[lang^='ru'] {
+  --display: 'AverItalic', serif;
+  --script: 'AverItalic', serif;
+  --text: 'AverItalic', serif;
+}
+
+html[lang^='en'] {
+  --display: 'AverItalic', serif;
+  --script: 'AverItalic', serif;
+  --text: 'AverItalic', serif;
 }
 
 * {
@@ -434,6 +478,7 @@ img {
   line-height: 1.05;
   text-align: center;
   letter-spacing: 0.08em;
+  font-family: 'GellovikRegularOne', serif;
   backdrop-filter: blur(8px);
 }
 
@@ -1105,6 +1150,13 @@ img {
   color: var(--muted);
   font-size: 0.98rem;
   line-height: 1.7;
+}
+
+.timeline-list .timeline-address-title {
+  margin-top: 0.62rem;
+  font-size: 1.85rem;
+  font-weight: 600;
+  line-height: 1.55;
 }
 
 .countdown {
@@ -2401,8 +2453,9 @@ body.opened {
   max-width: 19rem;
   margin: 0.8rem 0 auto;
   color: rgba(250, 248, 243, 0.78) !important;
-  font-family: var(--display);
-  font-size: clamp(1.8rem, 5vw, 2.7rem);
+  /* Keep the wedding date in its dedicated typeface. */
+  font-family: 'Gellovik', serif !important;
+  font-size: clamp(3.6rem, 10vw, 5.4rem);
   letter-spacing: 0.12em;
   line-height: 1.5;
   text-transform: uppercase;
@@ -3353,10 +3406,11 @@ body *:not(svg):not(path)::after {
   }
 
   .hero-invitation {
-    max-width: 15rem;
-    font-size: clamp(1.12rem, 5.4vw, 1.55rem);
+    max-width: none;
+    font-size: clamp(1.45rem, 6.5vw, 2rem);
     letter-spacing: 0.08em;
     line-height: 1.35;
+    white-space: nowrap;
   }
 
   .section,
@@ -3509,9 +3563,10 @@ body *:not(svg):not(path)::after {
   }
 
   .hero-invitation {
-    max-width: 13rem;
-    font-size: clamp(0.98rem, 4.9vw, 1.28rem);
+    max-width: none;
+    font-size: clamp(1.45rem, 6.5vw, 2rem);
     line-height: 1.28;
+    white-space: nowrap;
   }
 
   .section-copy h2,
@@ -3688,18 +3743,18 @@ body *:not(svg):not(path)::after {
 
 /* Venue/address titles are intentionally half the size of the event title. */
 .timeline-list .timeline-address-title {
-  font-size: clamp(0.725rem, 2.5vw, 0.9rem) !important;
+  font-size: clamp(0.979rem, 3.375vw, 1.215rem) !important;
 }
 
 @media (max-width: 767px) {
   .timeline-list .timeline-address-title {
-    font-size: clamp(0.5rem, 2.2vw, 0.575rem) !important;
+    font-size: clamp(0.675rem, 2.97vw, 0.776rem) !important;
   }
 }
 
 @media (max-width: 430px) {
   .timeline-list .timeline-address-title {
-    font-size: clamp(0.51rem, 2.45vw, 0.6rem) !important;
+    font-size: clamp(0.689rem, 3.308vw, 0.81rem) !important;
   }
 }
 
