@@ -1,12 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowUpRight,
-  CalendarDays,
   CheckCircle2,
   Clock3,
   Heart,
   MapPin,
-  Music2,
 } from 'lucide-react';
 import { useCountdown } from './hooks/useCountdown';
 import { submitRsvp } from './services/rsvpService';
@@ -102,7 +100,7 @@ function WeddingCalendar() {
 function EventCard({ event, mapButtonText, minimal = false }) {
   return (
     <article className="event-card">
-      <div className="event-media">
+      <div className={`event-media event-media-${event.id}`}>
         <img src={event.image} alt={event.imageAlt || event.title} loading="lazy" />
         <span>{event.number}</span>
       </div>
@@ -129,7 +127,7 @@ export default function App() {
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState('');
   const audioRef = useRef(null);
-  const { couple, wedding, cover, hero, events, notes, rsvp, gallery, location, timing, appearance } = config;
+  const { couple, wedding, cover, hero, events, rsvp, gallery, location, timing, appearance } = config;
   const visibleEvents = events.filter(event => event.enabled !== false);
   const timingItems = visibleEvents.map(event => ({ time: event.time, title: event.title }));
   const dateParts = wedding.displayDate.split(' · ');
@@ -440,32 +438,6 @@ export default function App() {
             </div>
           </section>
         )}
-
-        <section className="details-section section">
-          <div className="section-copy">
-            <p className="kicker">{notes.kicker}</p>
-            <h2 data-shadow="DETAILS">DETAILS<em>special</em></h2>
-          </div>
-          <div className="details-grid">
-            {notes.items.map(note => (
-              <article key={note.title}>
-                {note.icon === 'calendar' ? <CalendarDays size={24} /> : <Heart size={24} />}
-                <h3>{note.title}</h3>
-                <p>{note.text}</p>
-              </article>
-            ))}
-            <article>
-              <Music2 size={24} />
-              <h3>{wedding.displayDate}</h3>
-              <p>Սպասում ենք Ձեզ ջերմ, լուսավոր և անմոռանալի երեկոյի համար։</p>
-            </article>
-          </div>
-          <div className="signature" aria-label="With love">
-            <p>WITH LOVE</p>
-            <strong>{couple.initials?.partnerOne || 'H'}<i>&amp;</i>{couple.initials?.partnerTwo || 'O'}</strong>
-            <small>Belle âme</small>
-          </div>
-        </section>
 
         <footer>
           <span>{couple.combinedName}</span>

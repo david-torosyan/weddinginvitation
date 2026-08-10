@@ -34,7 +34,7 @@ export const weddingConfig = {
     { id: 'bride-house', number: '02', title: 'Հարսի տուն', time: '12:00', venue: 'Հավաքվում ենք միասին', address: 'Հասցեն կավելացվի ավելի ուշ', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Bride%27s+home+Armenia', image: '/pics/bribehouse.png', imageAlt: 'Հարսի տան նկարազարդում', enabled: true },
     { id: 'church', number: '03', title: 'Պսակադրության արարողություն', time: '15:00', venue: 'Սուրբ Հռիփսիմե եկեղեցի', address: 'Վաղարշապատ, Արմավիրի մարզ', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Saint+Hripsime+Church+Vagharshapat', image: '/pics/church.png', imageAlt: 'Սուրբ Հռիփսիմե եկեղեցու նկարազարդում', enabled: true },
     { id: 'zags', number: '04', title: 'Ամուսնության գրանցում', time: '16:00', venue: 'Սուրբ Հռիփսիմե եկեղեցի', address: 'Վաղարշապատ, Արմավիրի մարզ', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Saint+Hripsime+Church+Vagharshapat', image: '/pics/zags.png', imageAlt: 'Սուրբ Հռիփսիմե եկեղեցու նկարազարդում', enabled: true },
-    { id: 'reception', number: '05', title: 'Հարսանյանց հանդիսություն', time: '17:00', venue: 'Արարատ Հոլ', address: 'Հասցեն կավելացվի ավելի ուշ', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Ararat+Hall+Armenia', image: '/pics/restorant.png', imageAlt: 'Ռեստորանի նկարազարդում', enabled: true },
+    { id: 'reception', number: '05', title: 'Հարսանյաց հանդիսություն', time: '17:00', venue: 'Արարատ Հոլ', address: 'Հասցեն կավելացվի ավելի ուշ', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Ararat+Hall+Armenia', image: '/pics/restorant.png', imageAlt: 'Ռեստորանի նկարազարդում', enabled: true },
   ],
   countdown: { heading: 'Մնացել է․․․', labels: { days: 'ՕՐ', hours: 'ԺԱՄ', minutes: 'ՐՈՊԵ', seconds: 'ՎՐԿ' } },
   notes: {
