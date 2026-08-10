@@ -1,8 +1,8 @@
-export async function submitRsvp(payload) {
+export async function submitRsvp(payload, messages = {}) {
   const mode = import.meta.env.VITE_RSVP_MODE || 'mock';
   if (mode === 'webhook') {
     const url = import.meta.env.VITE_RSVP_WEBHOOK_URL;
-    if (!url) throw new Error('RSVP webhook հասցեն կարգավորված չէ։');
+    if (!url) throw new Error(messages.missingWebhookUrl || 'RSVP webhook URL is not configured.');
 
     // Apps Script does not expose CORS response headers. text/plain keeps this
     // request preflight-free; the Apps Script endpoint still receives JSON.

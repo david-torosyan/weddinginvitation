@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { useCountdown } from './hooks/useCountdown';
 import { submitRsvp } from './services/rsvpService';
-import { weddingConfig as config } from './config/weddingConfig';
+import { getWeddingConfig } from './config/weddingConfig';
 import leLogo from './assets/pics/LElogo.png';
 import elenAndLyovLogo from './assets/pics/ElenAndLyovLogopng.png';
 import handsImage from './assets/pics/hands.jpg';
@@ -18,13 +18,16 @@ import pictureThree from './assets/pics/picture3.jpg';
 import musicTrack from './musics/Stephen-Sanchez-Until-I-Found-You.m4a';
 
 const formatNumber = value => String(value).padStart(2, '0');
-const closingPhotos = [
-  { src: pictureOne, alt: 'Էլենի և Լյովայի լուսանկար 1' },
-  { src: pictureTwo, alt: 'Էլենի և Լյովայի լուսանկար 2' },
-  { src: pictureThree, alt: 'Էլենի և Լյովայի լուսանկար 3' },
+const LANGUAGE_STORAGE_KEY = 'invitation-language';
+const DEFAULT_LANGUAGE = 'hy';
+const supportedLanguages = ['hy', 'ru', 'en'];
+const languageOptions = [
+  { code: 'hy', label: 'ARM' },
+  { code: 'ru', label: 'RUS' },
+  { code: 'en', label: 'ENG' },
 ];
 
-function Countdown({ className = '' }) {
+function Countdown({ className = '', config }) {
   const { countdown, wedding } = config;
   const { labels } = countdown;
   const t = useCountdown(wedding.date);
@@ -50,7 +53,7 @@ function Countdown({ className = '' }) {
   );
 }
 
-function WeddingCalendar() {
+function WeddingCalendar({ config }) {
   const { wedding, calendar } = config;
   const [datePart] = wedding.date.split('T');
   const [year, month, day] = datePart.split('-').map(Number);
@@ -68,7 +71,7 @@ function WeddingCalendar() {
       <div className="section-copy armenian-decorative-text">
         <p className="kicker">{calendar.kicker}</p>
         <h2 className="armenian-decorative-text">{calendar.heading}</h2>
-        <p>{calendar.description.split('։')[0]}։</p>
+        <p>{calendar.leadText}</p>
       </div>
 
       <div className="calendar-card" aria-label={wedding.longDate}>
@@ -91,18 +94,12 @@ function WeddingCalendar() {
         </div>
       </div>
 
-      <div className="calendar-date-display" aria-label="Հոկտեմբեր 2026, հարսանիքի օրը՝ հոկտեմբերի 20-ին">
+      <div className="calendar-date-display" aria-label={calendar.rail.ariaLabel}>
         <div className="date-rail-heading">
-          <span>Հոկտեմբեր 2026</span>
+          <span>{calendar.rail.heading}</span>
         </div>
         <div className="date-rail" role="list">
-          {[
-            ['18', 'Կիր'],
-            ['19', 'Երկ'],
-            ['20', 'Երք'],
-            ['21', 'Չոր'],
-            ['22', 'Հնգ'],
-          ].map(([day, weekday]) => (
+          {calendar.rail.days.map(([day, weekday]) => (
             <span className={day === '20' ? 'date-rail-day selected' : 'date-rail-day'} key={day} role="listitem">
               <small>{weekday}</small>
               <strong>{day}</strong>
@@ -119,14 +116,28 @@ function WeddingCalendar() {
 }
 
 export default function App() {
+  const [language, setLanguage] = useState(() => {
+    if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
+    const storedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    return supportedLanguages.includes(storedLanguage) ? storedLanguage : DEFAULT_LANGUAGE;
+  });
   const [opened, setOpened] = useState(true);
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState('');
   const audioRef = useRef(null);
+  const config = useMemo(() => getWeddingConfig(language), [language]);
   const { couple, wedding, cover, hero, events, rsvp, gallery, location, timing, appearance } = config;
   const visibleEvents = events.filter(event => event.enabled !== false);
   const dateParts = wedding.displayDate.split(' · ');
+  const closingPhotos = useMemo(
+    () => [
+      { src: pictureOne, alt: gallery.closingPhotoAlts[0] },
+      { src: pictureTwo, alt: gallery.closingPhotoAlts[1] },
+      { src: pictureThree, alt: gallery.closingPhotoAlts[2] },
+    ],
+    [gallery.closingPhotoAlts],
+  );
 
   function openInvitation() {
     setOpened(true);
@@ -134,13 +145,19 @@ export default function App() {
   }
 
   useEffect(() => {
-    document.title = `${couple.combinedName} | Հարսանեկան հրավեր`;
+    if (typeof window === 'undefined') return;
+    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+  }, [language]);
+
+  useEffect(() => {
+    document.title = `${couple.combinedName} | ${config.meta.documentTitleSuffix}`;
+    document.documentElement.lang = wedding.locale;
     if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
     return () => {
       if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'auto';
     };
-  }, [couple.combinedName]);
+  }, [config.meta.documentTitleSuffix, couple.combinedName, wedding.locale]);
 
   useEffect(() => {
     document.body.classList.toggle('opened', opened);
@@ -274,13 +291,16 @@ export default function App() {
         throw new Error(rsvp.invalidGuestCountMessage);
       }
 
-      submitRsvp({
-        guestName: form.get('guestName').trim(),
-        guestCount,
-        attendance,
-        invitedBy: form.get('invitedBy'),
-        submittedAt: new Date().toISOString(),
-      }).catch(() => {});
+      submitRsvp(
+        {
+          guestName: form.get('guestName').trim(),
+          guestCount,
+          attendance,
+          invitedBy: form.get('invitedBy'),
+          submittedAt: new Date().toISOString(),
+        },
+        { missingWebhookUrl: rsvp.missingWebhookUrlMessage },
+      ).catch(() => {});
 
       await new Promise(resolve => setTimeout(resolve, 900));
       setSent(true);
@@ -293,9 +313,21 @@ export default function App() {
 
   return (
     <div className="invite-shell">
+      <div className="language-switcher" role="group" aria-label={config.meta.languageSelectorAriaLabel}>
+        {languageOptions.map(option => (
+          <button
+            className={language === option.code ? 'active' : ''}
+            key={option.code}
+            onClick={() => setLanguage(option.code)}
+            type="button"
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
       <audio ref={audioRef} className="invitation-audio" src={musicTrack} loop preload="auto" playsInline muted />
       {!opened && (
-        <section className="cover" aria-label="Invitation cover">
+        <section className="cover" aria-label={config.meta.coverAriaLabel}>
           <div className="cover-panel">
             <div className="cover-art">
               <img src={cover.image} alt={cover.imageAlt} />
@@ -303,7 +335,7 @@ export default function App() {
             <div className="cover-content">
               <p className="cover-date">LYOV <span>&amp;</span> ELEN</p>
               <img className="cover-logo" src={leLogo} alt="Lyov and Elen" />
-              <button onClick={openInvitation} type="button">Բացել</button>
+              <button onClick={openInvitation} type="button">{cover.buttonText}</button>
             </div>
           </div>
         </section>
@@ -324,12 +356,12 @@ export default function App() {
           </div>
         </section>
 
-        <WeddingCalendar />
+        <WeddingCalendar config={config} />
 
         <section className="memory-section" aria-label={gallery.imageAlt}>
           <div className="memory-frame">
-            <img src={handsImage} alt="Hands reaching for each other" loading="lazy" />
-            <img className="memory-detail" src={iranqImage} alt="Hands reaching for each other at the church" loading="lazy" />
+            <img src={handsImage} alt={gallery.memoryMainAlt} loading="lazy" />
+            <img className="memory-detail" src={iranqImage} alt={gallery.memoryDetailAlt} loading="lazy" />
           </div>
         </section>
 
@@ -344,7 +376,7 @@ export default function App() {
         >
           <div className="section-copy">
             <p className="kicker">{timing.kicker}</p>
-            <h2>Օրվա ծրագիրը</h2>
+            <h2>{timing.heading}</h2>
           </div>
           <div className="timeline-list">
             {visibleEvents.map(event => (
@@ -366,7 +398,7 @@ export default function App() {
               </article>
             ))}
           </div>
-          <Countdown />
+          <Countdown config={config} />
         </section>
 
         <section className="closing-photo" aria-label={gallery.imageAlt}>
@@ -380,7 +412,7 @@ export default function App() {
         {rsvp.enabled && (
           <section className="rsvp-section section" id="rsvp">
             <div className="rsvp-panel">
-              <Countdown className="rsvp-countdown" />
+              <Countdown className="rsvp-countdown" config={config} />
               <div className="section-copy">
                 <p className="kicker">{rsvp.kicker}</p>
                 <h2>{rsvp.heading}</h2>
@@ -429,8 +461,8 @@ export default function App() {
           </section>
         )}
 
-        <section className="invitation-closing" aria-label="Closing message">
-          <p>Սիրով սպասում ենք Ձեզ</p>
+        <section className="invitation-closing" aria-label={config.meta.closingAriaLabel}>
+          <p>{config.footer.closingMessage}</p>
         </section>
 
       </main>
