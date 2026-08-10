@@ -12,9 +12,17 @@ import leLogo from './assets/pics/LElogo.png';
 import elenAndLyovLogo from './assets/pics/ElenAndLyovLogopng.png';
 import handsImage from './assets/pics/hands.jpg';
 import iranqImage from './assets/pics/iranq.jpg';
+import pictureOne from './assets/pics/picture1.jpg';
+import pictureTwo from './assets/pics/picture2.jpg';
+import pictureThree from './assets/pics/picture3.jpg';
 import musicTrack from './musics/Stephen-Sanchez-Until-I-Found-You.m4a';
 
 const formatNumber = value => String(value).padStart(2, '0');
+const closingPhotos = [
+  { src: pictureOne, alt: 'Էլենի և Լյովայի լուսանկար 1' },
+  { src: pictureTwo, alt: 'Էլենի և Լյովայի լուսանկար 2' },
+  { src: pictureThree, alt: 'Էլենի և Լյովայի լուսանկար 3' },
+];
 
 function Countdown({ className = '' }) {
   const { countdown, wedding } = config;
@@ -363,8 +371,9 @@ export default function App() {
 
         <section className="closing-photo" aria-label={gallery.imageAlt}>
           <div className="closing-photo-frame">
-            <img src={gallery.image} alt={gallery.imageAlt} loading="lazy" />
-            <span>{couple.initials?.partnerOne || 'H'}<i>&amp;</i>{couple.initials?.partnerTwo || 'O'}</span>
+            {closingPhotos.map(photo => (
+              <img src={photo.src} alt={photo.alt} key={photo.src} loading="lazy" />
+            ))}
           </div>
         </section>
 
@@ -420,10 +429,6 @@ export default function App() {
           </section>
         )}
 
-        <footer>
-          <span>{couple.combinedName}</span>
-          <small>{wedding.longDate}</small>
-        </footer>
       </main>
     </div>
   );

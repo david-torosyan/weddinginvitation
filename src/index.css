@@ -3218,3 +3218,32 @@ body.opened,
 .timeline-card .text-link {
   margin-top: 0.75rem;
 }
+
+.closing-photo {
+  padding: 1rem 1.25rem 3.25rem !important;
+}
+
+.closing-photo-frame {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.45rem, 2vw, 0.8rem);
+  width: min(100%, 31rem) !important;
+  max-width: 31rem !important;
+  aspect-ratio: auto !important;
+  margin-inline: auto;
+  overflow: visible !important;
+}
+
+.closing-photo-frame img {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 0.72;
+  border-radius: 18px !important;
+  object-fit: cover;
+  object-position: center;
+  filter: none !important;
+}
+
+.closing-photo-frame > span {
+  display: none !important;
+}
