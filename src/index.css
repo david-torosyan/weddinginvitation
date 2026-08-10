@@ -2816,8 +2816,8 @@ footer {
 .timeline-list {
   display: flex !important;
   flex-direction: column;
-  gap: 3.6rem;
-  width: min(100%, 20rem) !important;
+  gap: var(--timeline-gap, 3rem);
+  width: min(100%, var(--timeline-max-width, 25rem)) !important;
   margin: 4rem auto 0 !important;
 }
 
@@ -2848,17 +2848,17 @@ footer {
   background: transparent !important;
   color: var(--charcoal) !important;
   font-family: 'ArTarumianBarakU', sans-serif;
-  font-size: clamp(3.6rem, 14vw, 5.8rem) !important;
+  font-size: var(--timeline-time-size, clamp(5.5rem, 22vw, 8.5rem)) !important;
   font-weight: 300 !important;
   line-height: 0.9;
 }
 
 .timeline-list h3 {
-  max-width: 15rem;
-  margin: 0.8rem auto 0 !important;
+  max-width: 22rem;
+  margin: 1.2rem auto 0 !important;
   color: var(--taupe-gray) !important;
   font-family: 'ArTarumianBarakU', sans-serif !important;
-  font-size: 1.45rem !important;
+  font-size: var(--timeline-caption-size, 2.1rem) !important;
   font-weight: 400 !important;
   line-height: 1.5 !important;
   text-transform: none !important;

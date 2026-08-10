@@ -128,7 +128,7 @@ export default function App() {
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState('');
   const audioRef = useRef(null);
-  const { couple, wedding, cover, hero, events, notes, rsvp, gallery, location, timing } = config;
+  const { couple, wedding, cover, hero, events, notes, rsvp, gallery, location, timing, appearance } = config;
   const visibleEvents = events.filter(event => event.enabled !== false);
   const timingItems = visibleEvents.map(event => ({ time: event.time, title: event.title }));
   const dateParts = wedding.displayDate.split(' · ');
@@ -351,10 +351,18 @@ export default function App() {
           </div>
         </section>
 
-        <section className="timeline-section section">
+        <section
+          className="timeline-section section"
+          style={{
+            '--timeline-gap': appearance.timeline.eventGap,
+            '--timeline-time-size': appearance.timeline.timeSize,
+            '--timeline-caption-size': appearance.timeline.captionSize,
+            '--timeline-max-width': appearance.timeline.maxWidth,
+          }}
+        >
           <div className="section-copy">
             <p className="kicker">{timing.kicker}</p>
-            <h2 data-shadow="Ժամանակացույց">Ժամանակացույց<em>special</em></h2>
+            <h2 data-shadow="Օրվա Ծրագիրը">Օրվա Ծրագիրը<em>special</em></h2>
           </div>
           <div className="timeline-list">
             {timingItems.map((event, index) => (
