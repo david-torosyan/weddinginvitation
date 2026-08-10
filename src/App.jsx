@@ -11,10 +11,9 @@ import {
 import { useCountdown } from './hooks/useCountdown';
 import { submitRsvp } from './services/rsvpService';
 import { weddingConfig as config } from './config/weddingConfig';
-import loveSymbolImage from './assets/pics/loveSymbol.png';
-import brideIcon from './assets/pics/bride.png';
-import churchIcon from './assets/pics/churchlogo.png';
-import servantIcon from './assets/pics/servant.png';
+import brideIcon from './assets/pics/bribehouse.png';
+import churchIcon from './assets/pics/church.png';
+import servantIcon from './assets/pics/restorant.png';
 import leLogo from './assets/pics/LElogo.png';
 import elenAndLyovLogo from './assets/pics/ElenAndLyovLogopng.png';
 import handsImage from './assets/pics/hands.jpg';
@@ -94,13 +93,13 @@ function WeddingCalendar() {
       <p className="calendar-date-display">{wedding.displayDate}</p>
 
       <div className="calendar-love-symbol" aria-hidden="true">
-        <img src={loveSymbolImage} alt="" loading="lazy" />
+        <Heart size={42} strokeWidth={1.25} />
       </div>
     </section>
   );
 }
 
-function EventCard({ event, mapButtonText }) {
+function EventCard({ event, mapButtonText, minimal = false }) {
   return (
     <article className="event-card">
       <div className="event-media">
@@ -108,10 +107,12 @@ function EventCard({ event, mapButtonText }) {
         <span>{event.number}</span>
       </div>
       <div className="event-content">
-        <p className="event-time"><Clock3 size={17} />{event.time}</p>
         <h3>{event.title}</h3>
-        <p className="event-venue">{event.venue}</p>
-        <p className="event-address"><MapPin size={16} />{event.address}</p>
+        {!minimal && <>
+          <p className="event-time"><Clock3 size={17} />{event.time}</p>
+          <p className="event-venue">{event.venue}</p>
+          <p className="event-address"><MapPin size={16} />{event.address}</p>
+        </>}
         {event.mapUrl && (
           <a className="text-link" href={event.mapUrl} target="_blank" rel="noreferrer">
             {mapButtonText}<ArrowUpRight size={16} />
@@ -340,13 +341,11 @@ export default function App() {
 
         <section className="places-section section" id="places">
           <div className="section-copy">
-            <p className="kicker">{location.kicker}</p>
-            <h2 data-shadow="Location">Location<em>for you</em></h2>
-            <p>{location.description}</p>
+            <h2 data-shadow="Հասցեներ">Հասցեներ</h2>
           </div>
           <div className="event-list">
             {visibleEvents.map(event => (
-              <EventCard event={event} key={event.id} mapButtonText={location.mapButtonText} />
+              <EventCard event={event} key={event.id} mapButtonText={location.mapButtonText} minimal />
             ))}
           </div>
         </section>

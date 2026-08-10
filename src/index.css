@@ -2794,7 +2794,6 @@ footer {
 
 .timeline-section .section-copy .kicker,
 .timeline-section .section-copy h2 em,
-.timeline-section .section-copy h2[data-shadow]::before,
 .timeline-section .timeline-icon,
 .timeline-section .timeline-list article > span,
 .timeline-section .countdown {
@@ -2805,12 +2804,35 @@ footer {
   display: none !important;
 }
 
-.timeline-section .section-copy h2 {
+.timeline-section .section-copy h2,
+.places-section .section-copy h2 {
   color: var(--charcoal) !important;
   font-family: 'ArTarumianBarakU Bold', sans-serif !important;
   font-size: clamp(3rem, 12vw, 5rem);
   font-weight: 700;
   line-height: 1;
+}
+
+.places-section .section-copy h2[data-shadow]::before {
+  top: -8%;
+  font-family: 'ArTarumianBarakU Bold', sans-serif !important;
+  font-weight: 700;
+}
+
+.places-section .event-content h3 {
+  font-size: 1.8rem;
+}
+
+.places-section .event-content .event-venue,
+.places-section .event-content .event-address {
+  font-size: 1rem;
+}
+
+.timeline-section .section-copy h2[data-shadow]::before {
+  top: -14%;
+  font-family: 'ArTarumianBarakU Bold', sans-serif !important;
+  font-size: 1.2em;
+  font-weight: 700;
 }
 
 .timeline-list {

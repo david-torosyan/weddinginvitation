@@ -1,7 +1,9 @@
 // Edit this file to update the invitation content without changing the page layout.
 import elenlyovImage from '../assets/pics/elenlyov.jpg';
-import homeImage from '../assets/pics/home.png';
+import homeImage from '../assets/pics/bribehouse.png';
+import groomHouseImage from '../assets/pics/groomhouse.png';
 import churchImage from '../assets/pics/church.png';
+import zagsImage from '../assets/pics/zags.png';
 import restorantImage from '../assets/pics/restorant.png';
 
 export const weddingConfig = {
@@ -26,12 +28,12 @@ export const weddingConfig = {
   calendar: { kicker: 'Our Day', heading: 'Սիրելի՛ Հյուրեր,', description: 'Սիրով հրավիրում ենք Ձեզ ներկա գտնվելու մեր հարսանյաց արարողությանը։ Ծանոթացեք օրվա ծրագրին և հաստատեք Ձեր ներկայությունը։', weekdays: ['Երկ', 'Երք', 'Չոր', 'Հնգ', 'Ուրբ', 'Շաբ', 'Կիր'] },
   gallery: { image: '/pics/elenlyov.jpg', imageAlt: 'Էլենի և Լյովայի լուսանկարը' },
   location: { kicker: 'Վայրը', heading: 'Location', emphasis: 'for you', description: 'Մեզ համար կարևոր յուրաքանչյուր պահը կանցկացնենք գեղեցիկ և սիրելի վայրերում։', mapButtonText: 'Քարտեզ' },
-  timing: { kicker: 'Ժամանակացույց', heading: 'Timing', emphasis: 'special' },
+  timing: { kicker: 'Օրվա ծրագիր', heading: 'Timing', emphasis: 'special' },
   events: [
-    { id: 'groom-house', number: '01', title: 'Փեսայի տուն', time: '11:00', venue: 'Հավաքվում ենք միասին', address: 'Հասցեն կավելացվի ավելի ուշ', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Groom%27s+home+Armenia', image: '/pics/home.png', imageAlt: 'Փեսայի տան նկարազարդում', enabled: true },
-    { id: 'bride-house', number: '02', title: 'Հարսի տուն', time: '12:00', venue: 'Հավաքվում ենք միասին', address: 'Հասցեն կավելացվի ավելի ուշ', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Bride%27s+home+Armenia', image: '/pics/home.png', imageAlt: 'Հարսի տան նկարազարդում', enabled: true },
+    { id: 'groom-house', number: '01', title: 'Փեսայի տուն', time: '11:00', venue: 'Հավաքվում ենք միասին', address: 'Հասցեն կավելացվի ավելի ուշ', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Groom%27s+home+Armenia', image: '/pics/groomhouse.png', imageAlt: 'Փեսայի տան նկարազարդում', enabled: true },
+    { id: 'bride-house', number: '02', title: 'Հարսի տուն', time: '12:00', venue: 'Հավաքվում ենք միասին', address: 'Հասցեն կավելացվի ավելի ուշ', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Bride%27s+home+Armenia', image: '/pics/bribehouse.png', imageAlt: 'Հարսի տան նկարազարդում', enabled: true },
     { id: 'church', number: '03', title: 'Պսակադրության արարողություն', time: '15:00', venue: 'Սուրբ Հռիփսիմե եկեղեցի', address: 'Վաղարշապատ, Արմավիրի մարզ', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Saint+Hripsime+Church+Vagharshapat', image: '/pics/church.png', imageAlt: 'Սուրբ Հռիփսիմե եկեղեցու նկարազարդում', enabled: true },
-    { id: 'zags', number: '04', title: 'Ամուսնության գրանցում', time: '16:00', venue: 'Սուրբ Հռիփսիմե եկեղեցի', address: 'Վաղարշապատ, Արմավիրի մարզ', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Saint+Hripsime+Church+Vagharshapat', image: '/pics/church.png', imageAlt: 'Սուրբ Հռիփսիմե եկեղեցու նկարազարդում', enabled: true },
+    { id: 'zags', number: '04', title: 'Ամուսնության գրանցում', time: '16:00', venue: 'Սուրբ Հռիփսիմե եկեղեցի', address: 'Վաղարշապատ, Արմավիրի մարզ', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Saint+Hripsime+Church+Vagharshapat', image: '/pics/zags.png', imageAlt: 'Սուրբ Հռիփսիմե եկեղեցու նկարազարդում', enabled: true },
     { id: 'reception', number: '05', title: 'Հարսանյանց հանդիսություն', time: '17:00', venue: 'Արարատ Հոլ', address: 'Հասցեն կավելացվի ավելի ուշ', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Ararat+Hall+Armenia', image: '/pics/restorant.png', imageAlt: 'Ռեստորանի նկարազարդում', enabled: true },
   ],
   countdown: { heading: 'Մնացել է․․․', labels: { days: 'ՕՐ', hours: 'ԺԱՄ', minutes: 'ՐՈՊԵ', seconds: 'ՎՐԿ' } },
@@ -54,9 +56,11 @@ export const weddingConfig = {
 weddingConfig.cover.image = elenlyovImage;
 weddingConfig.hero.image = elenlyovImage;
 weddingConfig.gallery.image = elenlyovImage;
-weddingConfig.events[0].image = homeImage;
-weddingConfig.events[1].image = churchImage;
-weddingConfig.events[2].image = restorantImage;
+weddingConfig.events[0].image = groomHouseImage;
+weddingConfig.events[1].image = homeImage;
+weddingConfig.events[2].image = churchImage;
+  weddingConfig.events[3].image = zagsImage;
+weddingConfig.events[4].image = restorantImage;
 weddingConfig.events[2].venue = 'Ադանա ռեստորանային համալիր';
 weddingConfig.events[2].address = 'Ադանա ռեստորանային համալիր';
 weddingConfig.events[2].mapUrl = 'https://www.google.com/maps/search/?api=1&query=Adana+restaurant+complex+Armenia';
