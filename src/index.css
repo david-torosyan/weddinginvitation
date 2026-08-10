@@ -2917,6 +2917,38 @@ body.opened {
   white-space: nowrap;
 }
 
+.memory-frame .memory-detail {
+  width: 86% !important;
+  height: 65% !important;
+  top: 43% !important;
+  right: -8% !important;
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+  object-position: center;
+  border-radius: 52px !important;
+  overflow: hidden !important;
+  clip-path: inset(0 round 52px) !important;
+  transform: scale(1.03);
+  transform-origin: center;
+}
+
+/* Keep both overlapping gallery blocks consistently rounded. */
+.memory-frame > img {
+  border-radius: 20px !important;
+  overflow: hidden;
+  clip-path: inset(0 round 20px);
+}
+
+.memory-frame > img.memory-detail {
+  border-radius: 20px !important;
+  clip-path: inset(0 round 20px);
+}
+
+.memory-frame > img:first-child {
+  border-radius: 0 !important;
+  clip-path: none;
+}
+
 @media (max-width: 640px) {
   .calendar-date-display {
     width: min(100%, 22rem) !important;

@@ -15,6 +15,7 @@ import servantIcon from './assets/pics/restorant.png';
 import leLogo from './assets/pics/LElogo.png';
 import elenAndLyovLogo from './assets/pics/ElenAndLyovLogopng.png';
 import handsImage from './assets/pics/hands.jpg';
+import iranqImage from './assets/pics/iranq.jpg';
 import musicTrack from './musics/Stephen-Sanchez-Until-I-Found-You.m4a';
 
 const timelineIcons = [brideIcon, churchIcon, servantIcon];
@@ -116,6 +117,8 @@ function WeddingCalendar() {
 }
 
 function EventCard({ event, mapButtonText, minimal = false }) {
+  const title = minimal ? event.addressTitle || event.title : event.title;
+
   return (
     <article className="event-card">
       <div className={`event-media event-media-${event.id}`}>
@@ -123,7 +126,7 @@ function EventCard({ event, mapButtonText, minimal = false }) {
         <span>{event.number}</span>
       </div>
       <div className="event-content">
-        <h3>{event.title}</h3>
+        <h3>{title}</h3>
         {!minimal && <>
           <p className="event-time"><Clock3 size={17} />{event.time}</p>
           <p className="event-venue">{event.venue}</p>
@@ -147,7 +150,11 @@ export default function App() {
   const audioRef = useRef(null);
   const { couple, wedding, cover, hero, events, rsvp, gallery, location, timing, appearance } = config;
   const visibleEvents = events.filter(event => event.enabled !== false);
-  const timingItems = visibleEvents.map(event => ({ time: event.time, title: event.title }));
+  const timingItems = visibleEvents.map(event => ({
+    time: event.time,
+    title: event.timelineTitle || event.title,
+    venue: event.venue,
+  }));
   const dateParts = wedding.displayDate.split(' · ');
 
   function openInvitation() {
@@ -350,8 +357,8 @@ export default function App() {
 
         <section className="memory-section" aria-label={gallery.imageAlt}>
           <div className="memory-frame">
-            <img src={gallery.image} alt={gallery.imageAlt} loading="lazy" />
-            <img className="memory-detail" src={handsImage} alt="Hands reaching for each other" loading="lazy" />
+            <img src={handsImage} alt="Hands reaching for each other" loading="lazy" />
+            <img className="memory-detail" src={iranqImage} alt="Hands reaching for each other at the church" loading="lazy" />
           </div>
         </section>
 
@@ -377,7 +384,7 @@ export default function App() {
         >
           <div className="section-copy">
             <p className="kicker">{timing.kicker}</p>
-            <h2 data-shadow="Օրվա Ծրագիրը">Օրվա Ծրագիրը<em>special</em></h2>
+            <h2 data-shadow="Օրվա ծրագիր">Օրվա ծրագիր</h2>
           </div>
           <div className="timeline-list">
             {timingItems.map((event, index) => (
