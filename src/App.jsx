@@ -65,9 +65,9 @@ function WeddingCalendar() {
 
   return (
     <section className="calendar-section section" id="date">
-      <div className="section-copy">
+      <div className="section-copy armenian-decorative-text">
         <p className="kicker">{calendar.kicker}</p>
-        <h2>{calendar.heading}</h2>
+        <h2 className="armenian-decorative-text">{calendar.heading}</h2>
         <p>{calendar.description.split('։')[0]}։</p>
       </div>
 
@@ -93,7 +93,7 @@ function WeddingCalendar() {
 
       <div className="calendar-date-display" aria-label="Հոկտեմբեր 2026, հարսանիքի օրը՝ հոկտեմբերի 20-ին">
         <div className="date-rail-heading">
-          <span>Մեր Հոկտեմբերը</span>
+          <span>Հոկտեմբեր 2026</span>
         </div>
         <div className="date-rail" role="list">
           {[
@@ -428,6 +428,10 @@ export default function App() {
             </div>
           </section>
         )}
+
+        <section className="invitation-closing" aria-label="Closing message">
+          <p>Սիրով սպասում ենք Ձեզ</p>
+        </section>
 
       </main>
     </div>
