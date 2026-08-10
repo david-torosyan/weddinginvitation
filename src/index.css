@@ -3181,7 +3181,9 @@ body.opened,
 
 .timeline-card h3 {
   margin-top: 0.45rem !important;
+  font-family: 'ArTarumianBarakU Bold', sans-serif !important;
   font-size: clamp(1.45rem, 5vw, 1.8rem) !important;
+  font-weight: 700 !important;
   line-height: 1.18 !important;
 }
 
@@ -3195,9 +3197,9 @@ body.opened,
   max-width: 22rem;
   margin: 0.25rem auto 0 !important;
   color: var(--charcoal) !important;
-  font-family: 'ArTarumianBarakU Bold', sans-serif !important;
+  font-family: 'ArTarumianBarakU', sans-serif !important;
   font-size: clamp(1.45rem, 5vw, 1.8rem) !important;
-  font-weight: 700 !important;
+  font-weight: 400 !important;
   line-height: 1.18 !important;
 }
 

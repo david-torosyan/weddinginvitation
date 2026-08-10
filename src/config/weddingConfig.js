@@ -65,7 +65,7 @@ export const weddingConfig = {
       timelineTitle: 'Հարսի տուն',
       addressTitle: '',
       time: '12:00',
-      venue: 'Հավաքվում ենք միասին',
+      venue: '',
       address: '',
       mapUrl: 'https://maps.app.goo.gl/gG79oo6hbpifjj3x9',
       image: homeImage,
