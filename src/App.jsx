@@ -67,7 +67,7 @@ function WeddingCalendar({ config }) {
   );
 
   return (
-    <section className="calendar-section section" id="date">
+    <section className="calendar-section section" id="date" data-reveal-style="soft-rise">
       <div className="section-copy armenian-decorative-text">
         <p className="kicker">{calendar.kicker}</p>
         <h2 className="armenian-decorative-text">{calendar.heading}</h2>
@@ -165,9 +165,10 @@ export default function App() {
     if (!opened) return () => { document.body.style.overflow = ''; };
 
     const nodes = [...document.querySelectorAll('.content > section, .content > footer')];
-    nodes.forEach((node, i) => {
-      node.classList.add('reveal');
-      node.style.setProperty('--reveal-delay', `${Math.min(i * 80, 480)}ms`);
+    nodes.forEach(node => {
+      node.classList.add('reveal-section');
+      node.classList.remove('reveal');
+      node.style.removeProperty('--reveal-delay');
     });
 
     const observer = new IntersectionObserver(
@@ -177,11 +178,27 @@ export default function App() {
           observer.unobserve(entry.target);
         }
       }),
-      { threshold: 0.14, rootMargin: '0px 0px -8%' },
+      { threshold: 0.18, rootMargin: '0px 0px -10%' },
     );
 
-    nodes.forEach(node => observer.observe(node));
-    return () => observer.disconnect();
+    const earlyObserver = new IntersectionObserver(
+      entries => entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          earlyObserver.unobserve(entry.target);
+        }
+      }),
+      { threshold: 0.1, rootMargin: '0px 0px 10%' },
+    );
+
+    nodes.forEach(node => {
+      const isEarlyReveal = node.getAttribute('data-reveal-early') === 'true';
+      (isEarlyReveal ? earlyObserver : observer).observe(node);
+    });
+    return () => {
+      observer.disconnect();
+      earlyObserver.disconnect();
+    };
   }, [opened]);
 
   useEffect(() => {
@@ -342,7 +359,7 @@ export default function App() {
       )}
 
       <main className={opened ? 'content visible' : 'content'}>
-        <section className="hero">
+        <section className="hero" data-reveal-style="cinematic">
           <div className="hero-overlay">
             <img className="hero-names-logo" src={elenAndLyovLogo} alt="Lyov and Elen" />
             <div className="hero-photo">
@@ -358,7 +375,7 @@ export default function App() {
 
         <WeddingCalendar config={config} />
 
-        <section className="memory-section" aria-label={gallery.imageAlt}>
+        <section className="memory-section" aria-label={gallery.imageAlt} data-reveal-style="tilt-float">
           <div className="memory-frame">
             <img src={handsImage} alt={gallery.memoryMainAlt} loading="lazy" />
             <img className="memory-detail" src={iranqImage} alt={gallery.memoryDetailAlt} loading="lazy" />
@@ -367,6 +384,8 @@ export default function App() {
 
         <section
           className="timeline-section section"
+          data-reveal-style="story-flow"
+          data-reveal-early="true"
           style={{
             '--timeline-gap': appearance.timeline.eventGap,
             '--timeline-time-size': appearance.timeline.timeSize,
@@ -401,7 +420,7 @@ export default function App() {
           <Countdown config={config} />
         </section>
 
-        <section className="closing-photo" aria-label={gallery.imageAlt}>
+        <section className="closing-photo" aria-label={gallery.imageAlt} data-reveal-style="photo-grid">
           <div className="closing-photo-frame">
             {closingPhotos.map(photo => (
               <img src={photo.src} alt={photo.alt} key={photo.src} loading="lazy" />
@@ -410,7 +429,7 @@ export default function App() {
         </section>
 
         {rsvp.enabled && (
-          <section className="rsvp-section section" id="rsvp">
+          <section className="rsvp-section section" id="rsvp" data-reveal-style="spotlight">
             <div className="rsvp-panel">
               <Countdown className="rsvp-countdown" config={config} />
               <div className="section-copy">
@@ -461,7 +480,7 @@ export default function App() {
           </section>
         )}
 
-        <section className="invitation-closing" aria-label={config.meta.closingAriaLabel}>
+        <section className="invitation-closing" aria-label={config.meta.closingAriaLabel} data-reveal-style="finale">
           <p>{config.footer.closingMessage}</p>
         </section>
 

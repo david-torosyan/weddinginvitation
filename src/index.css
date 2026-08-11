@@ -3774,3 +3774,275 @@ body *:not(svg):not(path)::after {
     font-size: clamp(1.12rem, 5.25vw, 1.4rem) !important;
   }
 }
+
+/* Cinematic section-level reveal system */
+.content.visible .reveal-section {
+  --reveal-y: 28px;
+  --reveal-scale: 0.986;
+  --reveal-rotate: 0deg;
+  --reveal-duration: 920ms;
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-y), 0) rotate(var(--reveal-rotate)) scale(var(--reveal-scale));
+  filter: saturate(0.96) contrast(0.99);
+  transition:
+    opacity var(--reveal-duration) cubic-bezier(0.22, 1, 0.36, 1),
+    transform var(--reveal-duration) cubic-bezier(0.22, 1, 0.36, 1),
+    filter var(--reveal-duration) cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.content.visible .reveal-section.in-view {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  filter: none;
+}
+
+.content.visible .reveal-section[data-reveal-style='cinematic'] {
+  --reveal-y: 40px;
+  --reveal-scale: 0.974;
+  --reveal-duration: 1120ms;
+}
+
+.content.visible .reveal-section[data-reveal-style='soft-rise'] {
+  --reveal-y: 30px;
+  --reveal-duration: 980ms;
+}
+
+.content.visible .reveal-section[data-reveal-style='tilt-float'] {
+  --reveal-y: 24px;
+  --reveal-scale: 0.992;
+  --reveal-rotate: -0.6deg;
+  --reveal-duration: 940ms;
+}
+
+.content.visible .reveal-section[data-reveal-style='story-flow'] {
+  --reveal-y: 34px;
+  --reveal-scale: 0.982;
+  --reveal-duration: 1020ms;
+}
+
+.content.visible .reveal-section[data-reveal-style='photo-grid'] {
+  --reveal-y: 26px;
+  --reveal-scale: 0.988;
+  --reveal-duration: 940ms;
+}
+
+.content.visible .reveal-section[data-reveal-style='spotlight'] {
+  --reveal-y: 22px;
+  --reveal-duration: 900ms;
+}
+
+.content.visible .reveal-section[data-reveal-style='finale'] {
+  --reveal-y: 18px;
+  --reveal-scale: 0.994;
+  --reveal-duration: 860ms;
+}
+
+.content.visible .reveal-section .section-copy,
+.content.visible .reveal-section .hero-overlay,
+.content.visible .reveal-section .memory-frame,
+.content.visible .reveal-section .closing-photo-frame,
+.content.visible .reveal-section .timeline-list,
+.content.visible .reveal-section .rsvp-panel,
+.content.visible .reveal-section .invitation-closing p {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(0.994);
+  transition:
+    opacity 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.content.visible .reveal-section.in-view .section-copy,
+.content.visible .reveal-section.in-view .hero-overlay,
+.content.visible .reveal-section.in-view .memory-frame,
+.content.visible .reveal-section.in-view .closing-photo-frame,
+.content.visible .reveal-section.in-view .timeline-list,
+.content.visible .reveal-section.in-view .rsvp-panel,
+.content.visible .reveal-section.in-view .invitation-closing p {
+  opacity: 1;
+  transform: none;
+}
+
+.content.visible .reveal-section.in-view .section-copy,
+.content.visible .reveal-section.in-view .hero-overlay,
+.content.visible .reveal-section.in-view .timeline-list,
+.content.visible .reveal-section.in-view .rsvp-panel {
+  transition-delay: 120ms;
+}
+
+.content.visible .reveal-section.in-view .memory-frame,
+.content.visible .reveal-section.in-view .closing-photo-frame {
+  transition-delay: 160ms;
+}
+
+.content.visible .reveal-section .timeline-card,
+.content.visible .reveal-section .timeline-event,
+.content.visible .reveal-section .date-rail-day,
+.content.visible .reveal-section .countdown-unit,
+.content.visible .reveal-section .details-grid article,
+.content.visible .reveal-section .rsvp-section label,
+.content.visible .reveal-section .timeline-card .text-link,
+.content.visible .reveal-section .rsvp-section button {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition:
+    opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.content.visible .reveal-section.in-view .timeline-card,
+.content.visible .reveal-section.in-view .timeline-event,
+.content.visible .reveal-section.in-view .date-rail-day,
+.content.visible .reveal-section.in-view .countdown-unit,
+.content.visible .reveal-section.in-view .details-grid article,
+.content.visible .reveal-section.in-view .rsvp-section label,
+.content.visible .reveal-section.in-view .timeline-card .text-link,
+.content.visible .reveal-section.in-view .rsvp-section button {
+  opacity: 1;
+  transform: none;
+  transition-delay: 180ms;
+}
+
+.content.visible .timeline-section.reveal-section .section-copy > * {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  transition:
+    opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.content.visible .timeline-section.reveal-section.in-view .section-copy > * {
+  opacity: 1;
+  transform: none;
+}
+
+.content.visible .timeline-section.reveal-section.in-view .section-copy > *:nth-child(1) {
+  transition-delay: 40ms;
+}
+
+.content.visible .timeline-section.reveal-section.in-view .section-copy > *:nth-child(2) {
+  transition-delay: 120ms;
+}
+
+.content.visible .timeline-section.reveal-section.in-view .section-copy > *:nth-child(3) {
+  transition-delay: 190ms;
+}
+
+.content.visible .timeline-section.reveal-section .timeline-card .timeline-event > * {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.content.visible .timeline-section.reveal-section.in-view .timeline-card .timeline-event > * {
+  opacity: 1;
+  transform: none;
+}
+
+.content.visible .timeline-section.reveal-section.in-view .timeline-card .timeline-event > *:nth-child(1) {
+  transition-delay: 70ms;
+}
+
+.content.visible .timeline-section.reveal-section.in-view .timeline-card .timeline-event > *:nth-child(2) {
+  transition-delay: 130ms;
+}
+
+.content.visible .timeline-section.reveal-section.in-view .timeline-card .timeline-event > *:nth-child(3) {
+  transition-delay: 185ms;
+}
+
+.content.visible .timeline-section.reveal-section.in-view .timeline-card .timeline-event > *:nth-child(4) {
+  transition-delay: 230ms;
+}
+
+.content.visible .timeline-section.reveal-section.in-view .timeline-card .timeline-event > *:nth-child(5) {
+  transition-delay: 280ms;
+}
+
+.content.visible .hero.in-view .hero-photo img {
+  transform-origin: center;
+  animation: hero-breathe 10s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.content.visible .memory-section.in-view .memory-detail {
+  animation: memory-settle 980ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.content.visible .closing-photo.in-view .closing-photo-frame img {
+  animation: photo-settle 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes hero-breathe {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes memory-settle {
+  from {
+    transform: translate3d(0, 16px, 0) scale(1.03);
+    opacity: 0.76;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes photo-settle {
+  from {
+    transform: translate3d(0, 12px, 0) scale(1.03);
+    opacity: 0.7;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .content.visible .reveal-section {
+    --reveal-y: 22px;
+    --reveal-duration: 780ms;
+  }
+
+  .content.visible .reveal-section .section-copy,
+  .content.visible .reveal-section .hero-overlay,
+  .content.visible .reveal-section .timeline-list,
+  .content.visible .reveal-section .rsvp-panel,
+  .content.visible .reveal-section .memory-frame,
+  .content.visible .reveal-section .closing-photo-frame,
+  .content.visible .reveal-section .invitation-closing p {
+    transform: translate3d(0, 12px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content.visible .reveal-section,
+  .content.visible .reveal-section .section-copy,
+  .content.visible .reveal-section .hero-overlay,
+  .content.visible .reveal-section .memory-frame,
+  .content.visible .reveal-section .closing-photo-frame,
+  .content.visible .reveal-section .timeline-list,
+  .content.visible .reveal-section .rsvp-panel,
+  .content.visible .reveal-section .timeline-card,
+  .content.visible .reveal-section .timeline-event,
+  .content.visible .reveal-section .date-rail-day,
+  .content.visible .reveal-section .countdown-unit,
+  .content.visible .reveal-section .details-grid article,
+  .content.visible .reveal-section .rsvp-section label,
+  .content.visible .reveal-section .timeline-card .text-link,
+  .content.visible .reveal-section .rsvp-section button,
+  .content.visible .reveal-section .invitation-closing p {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    filter: none !important;
+  }
+}
