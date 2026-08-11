@@ -196,7 +196,7 @@ const localizedContent = {
       closingAriaLabel: 'Եզրափակիչ ուղերձ',
     },
     footer: {
-      closingMessage: 'Սիրով սպասում ենք Ձեզ',
+      closingMessage: 'Սիրով Կսպասենք՛',
     },
   },
   ru: {

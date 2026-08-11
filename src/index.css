@@ -2178,6 +2178,61 @@ footer small {
   }
 }
 
+/* Final responsive overrides: keep centred columns stable after reveal styles load. */
+.content > .section,
+.content > .closing-photo,
+.content > .invitation-closing,
+.timeline-event,
+.event-content,
+.details-grid article,
+.rsvp-section label,
+.rsvp-section .thanks,
+.invitation-closing {
+  text-align: center;
+}
+
+.calendar-section .section-copy,
+.calendar-date-display,
+.content.visible .calendar-section .section-copy,
+.content.visible .calendar-section .calendar-date-display {
+  left: auto;
+  margin-inline: auto !important;
+  transform: none !important;
+}
+
+.numeric-text,
+body .numeric-text,
+input[type='number'],
+.countdown-unit strong,
+.calendar-day,
+.date-rail-day strong,
+.hero-date,
+.hero-invitation,
+.timeline-event time {
+  font-family: 'Gellovik', serif !important;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.rsvp-section label,
+.rsvp-section input,
+.rsvp-section select {
+  text-align: center;
+}
+
+.rsvp-section input,
+.rsvp-section select,
+.rsvp-section input:focus,
+.rsvp-section select:focus {
+  background: transparent !important;
+}
+
+.rsvp-section select { text-align-last: center; }
+
+.rsvp-section input::placeholder {
+  color: var(--taupe-gray) !important;
+  opacity: 0.72;
+}
+
 /* The calendar copy is already centered by its auto margins.  Do not offset it
    by 50% on mobile: the reveal transform otherwise replaces translateX(-50%)
    and pushes the heading off the right side of the viewport. */
@@ -2188,6 +2243,79 @@ footer small {
     margin-inline: auto !important;
     transform: none;
   }
+}
+
+/* Responsive alignment: every content block uses a centred, bounded column. */
+.content > .section,
+.content > .closing-photo,
+.content > .invitation-closing {
+  text-align: center;
+}
+
+.section-copy,
+.timeline-list,
+.event-list,
+.details-grid,
+.rsvp-panel,
+.rsvp-section form,
+.closing-photo-frame,
+.memory-frame {
+  margin-inline: auto;
+}
+
+.timeline-event,
+.event-content,
+.details-grid article,
+.rsvp-section label,
+.rsvp-section .thanks,
+.invitation-closing {
+  text-align: center;
+}
+
+/* Auto margins do the centring; positional transforms caused drift at some widths. */
+.calendar-section .section-copy,
+.calendar-date-display,
+.content.visible .calendar-section .section-copy,
+.content.visible .calendar-section .calendar-date-display {
+  left: auto;
+  margin-inline: auto !important;
+  transform: none;
+}
+
+/* Keep all displayed numerals in the supplied Gellovik typeface. */
+.numeric-text,
+input[type='number'],
+.countdown-unit strong,
+.calendar-day,
+.date-rail-day strong,
+.hero-date,
+.hero-invitation,
+.timeline-event time {
+  font-family: 'Gellovik', serif !important;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* RSVP fields remain visually open while their labels and placeholders explain the input. */
+.rsvp-section label,
+.rsvp-section input,
+.rsvp-section select {
+  text-align: center;
+}
+
+.rsvp-section input,
+.rsvp-section select,
+.rsvp-section input:focus,
+.rsvp-section select:focus {
+  background: transparent !important;
+}
+
+.rsvp-section select {
+  text-align-last: center;
+}
+
+.rsvp-section input::placeholder {
+  color: var(--taupe-gray) !important;
+  opacity: 0.72;
 }
 
 /* Reference-style monochrome opening cover */
@@ -4108,4 +4236,33 @@ body *:not(svg):not(path)::after {
     animation: none !important;
     filter: none !important;
   }
+}
+
+/* Desktop calendar: keep the copy and date selector on the page centre line. */
+@media (min-width: 768px) {
+  .calendar-section .section-copy,
+  .content.visible .calendar-section .section-copy,
+  .calendar-date-display,
+  .content.visible .calendar-section .calendar-date-display {
+    left: auto !important;
+    width: min(100%, 34rem) !important;
+    margin-inline: auto !important;
+    transform: none !important;
+    text-align: center !important;
+  }
+
+  .calendar-section .section-copy > * {
+    margin-inline: auto !important;
+    text-align: center !important;
+  }
+}
+
+.rsvp-closing {
+  margin: 1.8rem 0 0;
+  color: var(--charcoal);
+  font-family: var(--display);
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
 }

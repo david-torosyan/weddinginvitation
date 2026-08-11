@@ -18,6 +18,9 @@ import pictureThree from './assets/pics/picture3.jpg';
 import musicTrack from './musics/Stephen-Sanchez-Until-I-Found-You.m4a';
 
 const formatNumber = value => String(value).padStart(2, '0');
+const NumericText = ({ children }) => String(children).split(/(\d+)/).map((part, index) => (
+  /^\d+$/.test(part) ? <span className="numeric-text" key={index}>{part}</span> : part
+));
 const LANGUAGE_STORAGE_KEY = 'invitation-language';
 const DEFAULT_LANGUAGE = 'hy';
 const supportedLanguages = ['hy', 'ru', 'en'];
@@ -44,7 +47,7 @@ function Countdown({ className = '', config }) {
       <div className="countdown-grid">
         {units.map(unit => (
           <span className="countdown-unit" key={unit.label}>
-            <strong>{formatNumber(unit.value)}</strong>
+            <strong><NumericText>{formatNumber(unit.value)}</NumericText></strong>
             <small>{unit.label}</small>
           </span>
         ))}
@@ -88,7 +91,7 @@ function WeddingCalendar({ config }) {
               className={value === day ? 'calendar-day selected' : value ? 'calendar-day' : 'calendar-day empty'}
               key={`${value || 'empty'}-${index}`}
             >
-              {value}
+              <NumericText>{value || ''}</NumericText>
             </span>
           ))}
         </div>
@@ -96,13 +99,13 @@ function WeddingCalendar({ config }) {
 
       <div className="calendar-date-display" aria-label={calendar.rail.ariaLabel}>
         <div className="date-rail-heading">
-          <span>{calendar.rail.heading}</span>
+          <span><NumericText>{calendar.rail.heading}</NumericText></span>
         </div>
         <div className="date-rail" role="list">
           {calendar.rail.days.map(([day, weekday]) => (
             <span className={day === '20' ? 'date-rail-day selected' : 'date-rail-day'} key={day} role="listitem">
               <small>{weekday}</small>
-              <strong>{day}</strong>
+              <strong><NumericText>{day}</NumericText></strong>
             </span>
           ))}
         </div>
@@ -365,11 +368,11 @@ export default function App() {
             <div className="hero-photo">
               <img src={hero.image} alt={hero.imageAlt} />
               <div className="hero-date" aria-label={wedding.displayDate}>
-                {dateParts.map(part => <span key={part}>{part}</span>)}
+                {dateParts.map(part => <span key={part}><NumericText>{part}</NumericText></span>)}
               </div>
             </div>
             <img className="hero-logo" src={leLogo} alt="Lyov and Elen" />
-            <p className="hero-invitation">{wedding.displayDate}</p>
+            <p className="hero-invitation"><NumericText>{wedding.displayDate}</NumericText></p>
           </div>
         </section>
 
@@ -404,7 +407,7 @@ export default function App() {
                   <img src={event.image} alt={event.imageAlt || event.title} loading="lazy" />
                 </div>
                 <div className="timeline-event">
-                  <time>{event.time}</time>
+                  <time><NumericText>{event.time}</NumericText></time>
                   <h3>{event.timelineTitle || event.title}</h3>
                   <p className="timeline-address-title">{event.addressTitle || event.venue}</p>
                   <p className="timeline-address">{event.address}</p>
@@ -476,13 +479,10 @@ export default function App() {
                   <p className="form-status" aria-live="polite">{status}</p>
                 </form>
               )}
+              <p className="rsvp-closing">{config.footer.closingMessage}</p>
             </div>
           </section>
         )}
-
-        <section className="invitation-closing" aria-label={config.meta.closingAriaLabel} data-reveal-style="finale">
-          <p>{config.footer.closingMessage}</p>
-        </section>
 
       </main>
     </div>
