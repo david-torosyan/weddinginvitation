@@ -70,8 +70,8 @@ function WeddingCalendar({ config }) {
     <section className="calendar-section section" id="date" data-reveal-style="soft-rise">
       <div className="section-copy armenian-decorative-text">
         <p className="kicker">{calendar.kicker}</p>
-        <h2 className="armenian-decorative-text">{calendar.heading}</h2>
-        <p>{calendar.leadText}</p>
+        <h2 className="armenian-decorative-text calendar-invite-heading">{calendar.heading}</h2>
+        <p className="calendar-invite-lead">{calendar.leadText}</p>
       </div>
 
       <div className="calendar-card" aria-label={wedding.longDate}>

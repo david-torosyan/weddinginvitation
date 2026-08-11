@@ -2178,6 +2178,18 @@ footer small {
   }
 }
 
+/* The calendar copy is already centered by its auto margins.  Do not offset it
+   by 50% on mobile: the reveal transform otherwise replaces translateX(-50%)
+   and pushes the heading off the right side of the viewport. */
+@media (max-width: 767px) {
+  .calendar-section .section-copy,
+  .content.visible .calendar-section .section-copy {
+    left: auto;
+    margin-inline: auto !important;
+    transform: none;
+  }
+}
+
 /* Reference-style monochrome opening cover */
 .cover {
   min-height: 100svh;
@@ -3772,6 +3784,57 @@ body *:not(svg):not(path)::after {
 @media (max-width: 430px) {
   .timeline-card time {
     font-size: clamp(1.12rem, 5.25vw, 1.4rem) !important;
+  }
+}
+
+/* Mobile + desktop alignment hardening for invitation intro text */
+.calendar-section .section-copy {
+  width: 100%;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.calendar-section .calendar-invite-heading,
+.calendar-section .calendar-invite-lead {
+  width: 100%;
+  margin-inline: auto;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .calendar-section .calendar-invite-heading {
+    white-space: nowrap;
+    font-size: clamp(1.22rem, 6.1vw, 1.82rem) !important;
+    line-height: 1.1 !important;
+    letter-spacing: 0.01em;
+  }
+
+  .calendar-section .calendar-invite-lead {
+    max-width: min(100%, 19.5rem);
+    margin-top: 0.9rem;
+    font-size: clamp(0.86rem, 3.6vw, 0.98rem) !important;
+    line-height: 1.62 !important;
+    text-wrap: balance;
+  }
+}
+
+@media (max-width: 480px) {
+  .content > section,
+  .content > footer {
+    width: min(100%, 100vw);
+    margin-inline: auto;
+  }
+
+  .section-copy,
+  .timeline-event,
+  .event-content,
+  .rsvp-panel,
+  .rsvp-section form,
+  .calendar-date-display,
+  .timeline-list,
+  .details-grid {
+    margin-inline: auto;
+    text-align: center;
   }
 }
 
