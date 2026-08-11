@@ -3165,15 +3165,16 @@ body.opened {
   width: 86% !important;
   height: 65% !important;
   top: 43% !important;
-  right: -8% !important;
+  right: -16% !important;
   aspect-ratio: auto !important;
   object-fit: contain !important;
   object-position: center;
   border-radius: 52px !important;
   overflow: hidden !important;
   clip-path: inset(0 round 52px) !important;
-  transform: scale(1.03);
-  transform-origin: center;
+  /* Anchor the right edge and extend the extra width only toward the left. */
+  transform: scale(1.03) scaleX(1.1);
+  transform-origin: right center;
 }
 
 /* Keep both overlapping gallery blocks consistently rounded. */
@@ -4176,11 +4177,11 @@ body *:not(svg):not(path)::after {
 
 @keyframes memory-settle {
   from {
-    transform: translate3d(0, 16px, 0) scale(1.03);
+    transform: translate3d(0, 16px, 0) scale(1.03) scaleX(1.1);
     opacity: 0.76;
   }
   to {
-    transform: none;
+    transform: scale(1.03) scaleX(1.1);
     opacity: 1;
   }
 }
