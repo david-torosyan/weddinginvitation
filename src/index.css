@@ -4267,3 +4267,23 @@ body *:not(svg):not(path)::after {
   line-height: 1.25;
   text-align: center;
 }
+
+/* On desktop, let the hero photograph fill the invitation edge to edge. */
+@media (min-width: 768px) {
+  .content > .hero {
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  .hero-photo img {
+    transform: scale(1.28);
+    transform-origin: center;
+    animation: none !important;
+  }
+
+  .hero-photo {
+    width: 100% !important;
+    max-width: none;
+    aspect-ratio: auto;
+  }
+}
