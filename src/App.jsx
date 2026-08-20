@@ -5,6 +5,7 @@ import {
   Heart,
   MapPin,
 } from 'lucide-react';
+import { AnimatePresence, motion, useInView } from 'framer-motion';
 import {
   AmbientGlow,
   AnimatedSection,
@@ -65,6 +66,72 @@ function Countdown({ className = '', config }) {
         ))}
       </MotionGroup>
     </MotionGroup>
+  );
+}
+
+function ClosingPhotoCarousel({ ariaLabel, photos }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const carouselRef = useRef(null);
+  const reducedMotion = useReducedMotion();
+  const inView = useInView(carouselRef, { amount: 0.35 });
+
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [photos]);
+
+  useEffect(() => {
+    if (!inView || paused || reducedMotion || photos.length < 2) return undefined;
+
+    const intervalId = window.setInterval(() => {
+      setActiveIndex(currentIndex => (currentIndex + 1) % photos.length);
+    }, 1000);
+
+    return () => window.clearInterval(intervalId);
+  }, [inView, paused, photos.length, reducedMotion]);
+
+  const activePhoto = photos[activeIndex];
+
+  return (
+    <AnimatedSection className="closing-photo" id="closing-gallery" aria-label={ariaLabel}>
+      <MotionGroup
+        className="closing-photo-frame"
+        ref={carouselRef}
+        variants={motionVariants.group}
+        onPointerEnter={() => setPaused(true)}
+        onPointerLeave={() => setPaused(false)}
+      >
+        <div className="closing-photo-viewport">
+          <AnimatePresence initial={false}>
+            <motion.img
+              src={activePhoto.src}
+              alt={activePhoto.alt}
+              key={activePhoto.src}
+              loading="lazy"
+              decoding="async"
+              draggable="false"
+              initial={reducedMotion ? false : { x: '100%', opacity: 0.45, scale: 1.025 }}
+              animate={{ x: 0, opacity: 1, scale: 1 }}
+              exit={reducedMotion ? { opacity: 0 } : { x: '-100%', opacity: 0.45, scale: 1.025 }}
+              transition={{ duration: reducedMotion ? 0 : 0.58, ease: motionTokens.ease }}
+            />
+          </AnimatePresence>
+        </div>
+      </MotionGroup>
+
+      <div className="closing-photo-controls" aria-label={ariaLabel} role="group">
+        {photos.map((photo, index) => (
+          <button
+            type="button"
+            className={index === activeIndex ? 'is-active' : ''}
+            aria-label={photo.alt}
+            aria-pressed={index === activeIndex}
+            key={photo.src}
+            onClick={() => setActiveIndex(index)}
+          />
+        ))}
+      </div>
+    </AnimatedSection>
   );
 }
 
@@ -407,13 +474,7 @@ export default function App() {
           <Countdown config={config} />
         </AnimatedSection>
 
-        <AnimatedSection className="closing-photo" aria-label={gallery.imageAlt}>
-          <MotionGroup className="closing-photo-frame" variants={motionVariants.group}>
-            {closingPhotos.map(photo => (
-              <MotionItem as="img" src={photo.src} alt={photo.alt} key={photo.src} loading="lazy" decoding="async" variants={motionVariants.image} />
-            ))}
-          </MotionGroup>
-        </AnimatedSection>
+        <ClosingPhotoCarousel ariaLabel={gallery.imageAlt} photos={closingPhotos} />
 
         {rsvp.enabled && (
           <AnimatedSection className="rsvp-section section" id="rsvp">
