@@ -5,7 +5,19 @@ import {
   Heart,
   MapPin,
 } from 'lucide-react';
+import {
+  AmbientGlow,
+  AnimatedSection,
+  MotionGroup,
+  MotionInteractive,
+  MotionItem,
+  MotionPage,
+  ScrollRevealItem,
+  motionTokens,
+  motionVariants,
+} from './components/common/AnimatedSection';
 import { useCountdown } from './hooks/useCountdown';
+import { useReducedMotion } from './hooks/useReducedMotion';
 import { submitRsvp } from './services/rsvpService';
 import { getWeddingConfig } from './config/weddingConfig';
 import leLogo from './assets/pics/LElogo.png';
@@ -42,17 +54,17 @@ function Countdown({ className = '', config }) {
   ];
 
   return (
-    <div className={`countdown ${className}`.trim()} aria-label={countdown.heading}>
-      <p>{countdown.heading}</p>
-      <div className="countdown-grid">
+    <MotionGroup className={`countdown ${className}`.trim()} aria-label={countdown.heading} variants={motionVariants.fastGroup}>
+      <MotionItem as="p" variants={motionVariants.supporting}>{countdown.heading}</MotionItem>
+      <MotionGroup className="countdown-grid" variants={motionVariants.fastGroup}>
         {units.map(unit => (
-          <span className="countdown-unit" key={unit.label}>
+          <MotionItem as="span" className="countdown-unit" key={unit.label} variants={motionVariants.scale}>
             <strong><NumericText>{formatNumber(unit.value)}</NumericText></strong>
             <small>{unit.label}</small>
-          </span>
+          </MotionItem>
         ))}
-      </div>
-    </div>
+      </MotionGroup>
+    </MotionGroup>
   );
 }
 
@@ -70,14 +82,18 @@ function WeddingCalendar({ config }) {
   );
 
   return (
-    <section className="calendar-section section" id="date" data-reveal-style="soft-rise">
-      <div className="section-copy armenian-decorative-text">
-        <p className="kicker">{calendar.kicker}</p>
-        <h2 className="armenian-decorative-text calendar-invite-heading">{calendar.heading}</h2>
-        <p className="calendar-invite-lead">{calendar.leadText}</p>
-      </div>
+    <AnimatedSection
+      className="calendar-section section"
+      id="date"
+      viewport={motionTokens.eventViewport}
+    >
+      <MotionGroup className="section-copy armenian-decorative-text">
+        <MotionItem as="p" className="kicker" variants={motionVariants.eyebrow}>{calendar.kicker}</MotionItem>
+        <MotionItem as="h2" className="armenian-decorative-text calendar-invite-heading" variants={motionVariants.heading}>{calendar.heading}</MotionItem>
+        <MotionItem as="p" className="calendar-invite-lead" variants={motionVariants.supporting}>{calendar.leadText}</MotionItem>
+      </MotionGroup>
 
-      <div className="calendar-card" aria-label={wedding.longDate}>
+      <MotionItem className="calendar-card" aria-label={wedding.longDate} variants={motionVariants.scale}>
         <div className="calendar-heading">
           <strong>{monthName}</strong>
           <span>{year}</span>
@@ -95,26 +111,26 @@ function WeddingCalendar({ config }) {
             </span>
           ))}
         </div>
-      </div>
+      </MotionItem>
 
-      <div className="calendar-date-display" aria-label={calendar.rail.ariaLabel}>
+      <MotionItem className="calendar-date-display" aria-label={calendar.rail.ariaLabel} variants={motionVariants.item}>
         <div className="date-rail-heading">
           <span><NumericText>{calendar.rail.heading}</NumericText></span>
         </div>
-        <div className="date-rail" role="list">
+        <MotionGroup className="date-rail" role="list" variants={motionVariants.fastGroup}>
           {calendar.rail.days.map(([day, weekday]) => (
-            <span className={day === '20' ? 'date-rail-day selected' : 'date-rail-day'} key={day} role="listitem">
+            <MotionItem as="span" className={day === '20' ? 'date-rail-day selected' : 'date-rail-day'} key={day} role="listitem" variants={motionVariants.scale}>
               <small>{weekday}</small>
               <strong><NumericText>{day}</NumericText></strong>
-            </span>
+            </MotionItem>
           ))}
-        </div>
-      </div>
+        </MotionGroup>
+      </MotionItem>
 
-      <div className="calendar-love-symbol" aria-hidden="true">
+      <MotionItem className="calendar-love-symbol" aria-hidden="true" variants={motionVariants.scale}>
         <Heart size={42} strokeWidth={1.25} />
-      </div>
-    </section>
+      </MotionItem>
+    </AnimatedSection>
   );
 }
 
@@ -129,6 +145,7 @@ export default function App() {
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState('');
   const audioRef = useRef(null);
+  const reducedMotion = useReducedMotion();
   const config = useMemo(() => getWeddingConfig(language), [language]);
   const { couple, wedding, cover, hero, events, rsvp, gallery, location, timing, appearance } = config;
   const visibleEvents = events.filter(event => event.enabled !== false);
@@ -165,43 +182,7 @@ export default function App() {
   useEffect(() => {
     document.body.classList.toggle('opened', opened);
     document.body.style.overflow = opened ? '' : 'hidden';
-    if (!opened) return () => { document.body.style.overflow = ''; };
-
-    const nodes = [...document.querySelectorAll('.content > section, .content > footer')];
-    nodes.forEach(node => {
-      node.classList.add('reveal-section');
-      node.classList.remove('reveal');
-      node.style.removeProperty('--reveal-delay');
-    });
-
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          observer.unobserve(entry.target);
-        }
-      }),
-      { threshold: 0.18, rootMargin: '0px 0px -10%' },
-    );
-
-    const earlyObserver = new IntersectionObserver(
-      entries => entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          earlyObserver.unobserve(entry.target);
-        }
-      }),
-      { threshold: 0.1, rootMargin: '0px 0px 10%' },
-    );
-
-    nodes.forEach(node => {
-      const isEarlyReveal = node.getAttribute('data-reveal-early') === 'true';
-      (isEarlyReveal ? earlyObserver : observer).observe(node);
-    });
-    return () => {
-      observer.disconnect();
-      earlyObserver.disconnect();
-    };
+    return () => { document.body.style.overflow = ''; };
   }, [opened]);
 
   useEffect(() => {
@@ -240,7 +221,7 @@ export default function App() {
   }, [opened]);
 
   useEffect(() => {
-    if (!opened) return undefined;
+    if (!opened || reducedMotion) return undefined;
 
     let cancelled = false;
     let frame;
@@ -292,7 +273,7 @@ export default function App() {
       window.removeEventListener('touchmove', cancelAutoScroll);
       window.removeEventListener('keydown', onKeyDown);
     };
-  }, [opened]);
+  }, [opened, reducedMotion]);
 
   async function handleRsvp(event) {
     event.preventDefault();
@@ -333,62 +314,65 @@ export default function App() {
 
   return (
     <div className="invite-shell">
-      <div className="language-switcher" role="group" aria-label={config.meta.languageSelectorAriaLabel}>
+      <AmbientGlow />
+      <MotionGroup className="language-switcher" role="group" aria-label={config.meta.languageSelectorAriaLabel} variants={motionVariants.fastGroup}>
         {languageOptions.map(option => (
-          <button
+          <MotionInteractive
             className={language === option.code ? 'active' : ''}
             key={option.code}
             onClick={() => setLanguage(option.code)}
             type="button"
           >
             {option.label}
-          </button>
+          </MotionInteractive>
         ))}
-      </div>
+      </MotionGroup>
       <audio ref={audioRef} className="invitation-audio" src={musicTrack} loop preload="auto" playsInline muted />
       {!opened && (
-        <section className="cover" aria-label={config.meta.coverAriaLabel}>
-          <div className="cover-panel">
-            <div className="cover-art">
-              <img src={cover.image} alt={cover.imageAlt} />
-            </div>
-            <div className="cover-content">
-              <p className="cover-date">LYOV <span>&amp;</span> ELEN</p>
-              <img className="cover-logo" src={leLogo} alt="Lyov and Elen" />
-              <button onClick={openInvitation} type="button">{cover.buttonText}</button>
-            </div>
-          </div>
-        </section>
+        <AnimatedSection className="cover" aria-label={config.meta.coverAriaLabel}>
+          <MotionGroup className="cover-panel">
+            <MotionItem className="cover-art" variants={motionVariants.image}>
+              <img src={cover.image} alt={cover.imageAlt} decoding="async" fetchPriority="high" />
+            </MotionItem>
+            <MotionGroup className="cover-content">
+              <MotionItem as="p" className="cover-date" variants={motionVariants.eyebrow}>LYOV <span>&amp;</span> ELEN</MotionItem>
+              <MotionItem as="img" className="cover-logo" src={leLogo} alt="Lyov and Elen" variants={motionVariants.heading} />
+              <MotionInteractive onClick={openInvitation} type="button" variants={motionVariants.supporting}>{cover.buttonText}</MotionInteractive>
+            </MotionGroup>
+          </MotionGroup>
+        </AnimatedSection>
       )}
 
-      <main className={opened ? 'content visible' : 'content'}>
-        <section className="hero" data-reveal-style="cinematic">
-          <div className="hero-overlay">
-            <img className="hero-names-logo" src={elenAndLyovLogo} alt="Lyov and Elen" />
-            <div className="hero-photo">
-              <img src={hero.image} alt={hero.imageAlt} />
-              <div className="hero-date" aria-label={wedding.displayDate}>
-                {dateParts.map(part => <span key={part}><NumericText>{part}</NumericText></span>)}
-              </div>
-            </div>
-            <img className="hero-logo" src={leLogo} alt="Lyov and Elen" />
-            <p className="hero-invitation"><NumericText>{wedding.displayDate}</NumericText></p>
-          </div>
-        </section>
+      <MotionPage className={opened ? 'content visible' : 'content'}>
+        <AnimatedSection className="hero" viewport={{ once: true, amount: 0.02 }}>
+          <MotionGroup className="hero-overlay" variants={motionVariants.group}>
+            <MotionItem as="img" className="hero-names-logo" src={elenAndLyovLogo} alt="Lyov and Elen" variants={motionVariants.heading} decoding="async" />
+            <MotionItem className="hero-photo" variants={motionVariants.image}>
+              <img src={hero.image} alt={hero.imageAlt} decoding="async" fetchPriority="high" />
+              <MotionGroup className="hero-date" aria-label={wedding.displayDate} variants={motionVariants.fastGroup}>
+                {dateParts.map(part => (
+                  <MotionItem as="span" key={part} variants={motionVariants.item}>
+                    <NumericText>{part}</NumericText>
+                  </MotionItem>
+                ))}
+              </MotionGroup>
+            </MotionItem>
+            <MotionItem as="img" className="hero-logo" src={leLogo} alt="Lyov and Elen" variants={motionVariants.item} decoding="async" />
+            <MotionItem as="p" className="hero-invitation" variants={motionVariants.supporting}><NumericText>{wedding.displayDate}</NumericText></MotionItem>
+          </MotionGroup>
+        </AnimatedSection>
 
         <WeddingCalendar config={config} />
 
-        <section className="memory-section" aria-label={gallery.imageAlt} data-reveal-style="tilt-float">
-          <div className="memory-frame">
-            <img src={handsImage} alt={gallery.memoryMainAlt} loading="lazy" />
-            <img className="memory-detail" src={iranqImage} alt={gallery.memoryDetailAlt} loading="lazy" />
-          </div>
-        </section>
+        <AnimatedSection className="memory-section" aria-label={gallery.imageAlt}>
+          <MotionGroup className="memory-frame" variants={motionVariants.group}>
+            <MotionItem as="img" src={handsImage} alt={gallery.memoryMainAlt} loading="lazy" decoding="async" variants={motionVariants.image} />
+            <MotionItem as="img" className="memory-detail" src={iranqImage} alt={gallery.memoryDetailAlt} loading="lazy" decoding="async" variants={motionVariants.memoryDetail} />
+          </MotionGroup>
+        </AnimatedSection>
 
-        <section
+        <AnimatedSection
           className="timeline-section section"
-          data-reveal-style="story-flow"
-          data-reveal-early="true"
           style={{
             '--timeline-gap': appearance.timeline.eventGap,
             '--timeline-time-size': appearance.timeline.timeSize,
@@ -396,66 +380,66 @@ export default function App() {
             '--timeline-max-width': appearance.timeline.maxWidth,
           }}
         >
-          <div className="section-copy">
-            <p className="kicker">{timing.kicker}</p>
-            <h2>{timing.heading}</h2>
-          </div>
+          <MotionGroup className="section-copy">
+            <MotionItem as="p" className="kicker" variants={motionVariants.eyebrow}>{timing.kicker}</MotionItem>
+            <MotionItem as="h2" variants={motionVariants.heading}>{timing.heading}</MotionItem>
+          </MotionGroup>
           <div className="timeline-list">
             {visibleEvents.map(event => (
-              <article className="timeline-card" key={event.id}>
-                <div className={`timeline-media event-media-${event.id}`}>
-                  <img src={event.image} alt={event.imageAlt || event.title} loading="lazy" />
-                </div>
-                <div className="timeline-event">
-                  <time><NumericText>{event.time}</NumericText></time>
-                  <h3>{event.timelineTitle || event.title}</h3>
-                  <p className="timeline-address-title">{event.addressTitle || event.venue}</p>
-                  <p className="timeline-address">{event.address}</p>
+              <ScrollRevealItem as="article" className="timeline-card" key={event.id} variants={motionVariants.timelineCard}>
+                <MotionItem className={`timeline-media event-media-${event.id}`} variants={motionVariants.image}>
+                  <img src={event.image} alt={event.imageAlt || event.title} loading="lazy" decoding="async" />
+                </MotionItem>
+                <MotionGroup className="timeline-event" variants={motionVariants.fastGroup}>
+                  <MotionItem as="time"><NumericText>{event.time}</NumericText></MotionItem>
+                  <MotionItem as="h3">{event.timelineTitle || event.title}</MotionItem>
+                  <MotionItem as="p" className="timeline-address-title">{event.addressTitle || event.venue}</MotionItem>
+                  <MotionItem as="p" className="timeline-address">{event.address}</MotionItem>
                   {event.mapUrl && (
-                    <a className="text-link" href={event.mapUrl} target="_blank" rel="noreferrer">
+                    <MotionInteractive as="a" className="text-link" href={event.mapUrl} target="_blank" rel="noreferrer" variants={motionVariants.item}>
                       <MapPin size={16} />{location.mapButtonText}<ArrowUpRight size={16} />
-                    </a>
+                    </MotionInteractive>
                   )}
-                </div>
-              </article>
+                </MotionGroup>
+              </ScrollRevealItem>
             ))}
           </div>
           <Countdown config={config} />
-        </section>
+        </AnimatedSection>
 
-        <section className="closing-photo" aria-label={gallery.imageAlt} data-reveal-style="photo-grid">
-          <div className="closing-photo-frame">
+        <AnimatedSection className="closing-photo" aria-label={gallery.imageAlt}>
+          <MotionGroup className="closing-photo-frame" variants={motionVariants.group}>
             {closingPhotos.map(photo => (
-              <img src={photo.src} alt={photo.alt} key={photo.src} loading="lazy" />
+              <MotionItem as="img" src={photo.src} alt={photo.alt} key={photo.src} loading="lazy" decoding="async" variants={motionVariants.image} />
             ))}
-          </div>
-        </section>
+          </MotionGroup>
+        </AnimatedSection>
 
         {rsvp.enabled && (
-          <section className="rsvp-section section" id="rsvp" data-reveal-style="spotlight">
-            <div className="rsvp-panel">
+          <AnimatedSection className="rsvp-section section" id="rsvp">
+            <MotionGroup className="rsvp-panel" variants={motionVariants.group}>
               <Countdown className="rsvp-countdown" config={config} />
-              <div className="section-copy">
-                <p className="kicker">{rsvp.kicker}</p>
-                <h2>{rsvp.heading}</h2>
-              </div>
+              <MotionGroup className="section-copy">
+                <MotionItem as="p" className="kicker" variants={motionVariants.eyebrow}>{rsvp.kicker}</MotionItem>
+                <MotionItem as="h2" variants={motionVariants.heading}>{rsvp.heading}</MotionItem>
+              </MotionGroup>
 
               {sent ? (
-                <div className="thanks" role="status">
+                <MotionItem className="thanks" role="status" variants={motionVariants.scale}>
                   <CheckCircle2 size={24} />
                   <p>{rsvp.successMessage}</p>
-                </div>
+                </MotionItem>
               ) : (
-                <form onSubmit={handleRsvp}>
-                  <label>
+                <MotionGroup as="form" onSubmit={handleRsvp} variants={motionVariants.fastGroup}>
+                  <MotionItem as="label">
                     <span>{rsvp.namePlaceholder}</span>
                     <input name="guestName" required autoComplete="name" placeholder={rsvp.namePlaceholder} />
-                  </label>
-                  <label>
+                  </MotionItem>
+                  <MotionItem as="label">
                     <span>{rsvp.guestCountPlaceholder}</span>
                     <input name="guestCount" type="number" min="0" max="20" inputMode="numeric" placeholder="1" />
-                  </label>
-                  <label>
+                  </MotionItem>
+                  <MotionItem as="label">
                     <span>{rsvp.invitedByPlaceholder}</span>
                     <select name="invitedBy" defaultValue="" required>
                       <option value="" disabled>{rsvp.invitedByPlaceholder}</option>
@@ -463,8 +447,8 @@ export default function App() {
                         <option value={option.value} key={option.value}>{option.label}</option>
                       ))}
                     </select>
-                  </label>
-                  <label>
+                  </MotionItem>
+                  <MotionItem as="label">
                     <span>{rsvp.attendancePlaceholder}</span>
                     <select name="attendance" defaultValue="" required>
                       <option value="" disabled>{rsvp.attendancePlaceholder}</option>
@@ -472,19 +456,19 @@ export default function App() {
                         <option value={option.value} key={option.value}>{option.label}</option>
                       ))}
                     </select>
-                  </label>
-                  <button disabled={busy} type="submit">
+                  </MotionItem>
+                  <MotionInteractive disabled={busy} type="submit" variants={motionVariants.item}>
                     {busy ? rsvp.sendingText : rsvp.submitButtonText}
-                  </button>
-                  <p className="form-status" aria-live="polite">{status}</p>
-                </form>
+                  </MotionInteractive>
+                  <MotionItem as="p" className="form-status" aria-live="polite">{status}</MotionItem>
+                </MotionGroup>
               )}
-              <p className="rsvp-closing">{config.footer.closingMessage}</p>
-            </div>
-          </section>
+              <MotionItem as="p" className="rsvp-closing" variants={motionVariants.supporting}>{config.footer.closingMessage}</MotionItem>
+            </MotionGroup>
+          </AnimatedSection>
         )}
 
-      </main>
+      </MotionPage>
     </div>
   );
 }

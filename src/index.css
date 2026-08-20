@@ -4287,3 +4287,158 @@ body *:not(svg):not(path)::after {
     aspect-ratio: auto;
   }
 }
+
+/* Shared motion polish: ambient depth, tactile controls, and image interactions. */
+.invite-shell {
+  isolation: isolate;
+}
+
+.content,
+.cover {
+  position: relative;
+  z-index: 1;
+}
+
+.ambient-glow {
+  position: absolute;
+  top: 22%;
+  right: -10rem;
+  z-index: 0;
+  width: min(28rem, 72vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(185, 154, 122, 0.16), rgba(205, 179, 154, 0.05) 48%, transparent 72%);
+  opacity: 0.9;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.timeline-media,
+.closing-photo-frame img {
+  overflow: hidden;
+}
+
+.timeline-media img,
+.closing-photo-frame img,
+.memory-frame img,
+.hero-photo img {
+  backface-visibility: hidden;
+  transition:
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 500ms ease;
+}
+
+.calendar-love-symbol svg {
+  animation: heart-float 4.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.calendar-day.selected::before {
+  animation: selected-day-glow 3.6s ease-in-out infinite;
+}
+
+.language-switcher button,
+.rsvp-section button,
+.text-link {
+  transform-origin: center;
+}
+
+.text-link svg:last-child {
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid rgba(91, 64, 48, 0.78);
+  outline-offset: 4px;
+}
+
+.rsvp-section button:disabled {
+  cursor: wait;
+  opacity: 0.66;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .timeline-card:hover .timeline-media img {
+    transform: scale(1.035);
+  }
+
+  .closing-photo-frame img:hover {
+    transform: translateY(-5px) scale(1.018);
+  }
+
+  .memory-frame:hover > img:first-child {
+    transform: translate3d(-3px, -3px, 0) scale(1.012);
+  }
+
+  .memory-frame:hover .memory-detail {
+    filter: saturate(1.04) contrast(1.01) !important;
+  }
+
+  .text-link:hover svg:last-child {
+    transform: translate3d(3px, -3px, 0);
+  }
+}
+
+@keyframes heart-float {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate3d(0, -4px, 0) scale(1.035);
+  }
+}
+
+@keyframes selected-day-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 4px 8px rgba(128, 88, 60, 0.1));
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    filter: drop-shadow(0 7px 13px rgba(128, 88, 60, 0.2));
+    transform: translate(-50%, -50%) scale(1.025);
+  }
+}
+
+@media (max-width: 767px) {
+  .ambient-glow {
+    right: -9rem;
+    width: 23rem;
+    opacity: 0.62;
+  }
+
+  .timeline-media img,
+  .closing-photo-frame img,
+  .memory-frame img,
+  .hero-photo img {
+    transition-duration: 520ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .ambient-glow {
+    display: none;
+  }
+}
