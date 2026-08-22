@@ -28,7 +28,7 @@ import iranqImage from './assets/pics/iranq.jpg';
 import pictureOne from './assets/pics/picture1.jpg';
 import pictureTwo from './assets/pics/picture2.jpg';
 import pictureThree from './assets/pics/picture3.jpg';
-import musicTrack from './musics/Stephen-Sanchez-Until-I-Found-You.m4a';
+import musicTrack from "./musics/Elvis_Presley_Can't_Help_Falling_In_Love_Official_Audio.mp3";
 
 const formatNumber = value => String(value).padStart(2, '0');
 const NumericText = ({ children }) => String(children).split(/(\d+)/).map((part, index) => (
@@ -85,7 +85,7 @@ function ClosingPhotoCarousel({ ariaLabel, photos }) {
 
     const intervalId = window.setInterval(() => {
       setActiveIndex(currentIndex => (currentIndex + 1) % photos.length);
-    }, 1000);
+    }, 1800);
 
     return () => window.clearInterval(intervalId);
   }, [inView, paused, photos.length, reducedMotion]);
@@ -211,6 +211,7 @@ export default function App() {
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState('');
+  const [musicPlaying, setMusicPlaying] = useState(false);
   const audioRef = useRef(null);
   const reducedMotion = useReducedMotion();
   const config = useMemo(() => getWeddingConfig(language), [language]);
@@ -256,21 +257,21 @@ export default function App() {
     if (!opened) return undefined;
 
     const audio = audioRef.current;
-    let retryTimer;
     const tryPlay = () => {
       if (!audio) return Promise.resolve();
       const attempt = audio.play();
       return attempt && typeof attempt.then === 'function' ? attempt : Promise.resolve();
     };
 
-    retryTimer = window.setTimeout(() => { tryPlay().catch(() => {}); }, 1000);
+    const unlockAudio = event => {
+      if (event.target instanceof Element && event.target.closest('.music-toggle')) return;
 
-    const unlockAudio = () => {
       tryPlay()
         .then(() => {
           document.removeEventListener('pointerdown', unlockAudio);
           document.removeEventListener('touchstart', unlockAudio);
           document.removeEventListener('keydown', unlockAudio);
+          window.removeEventListener('wheel', unlockAudio);
         })
         .catch(() => {});
     };
@@ -278,14 +279,27 @@ export default function App() {
     document.addEventListener('pointerdown', unlockAudio, { passive: true });
     document.addEventListener('touchstart', unlockAudio, { passive: true });
     document.addEventListener('keydown', unlockAudio);
+    window.addEventListener('wheel', unlockAudio, { passive: true });
+    tryPlay().catch(() => {});
 
     return () => {
-      window.clearTimeout(retryTimer);
       document.removeEventListener('pointerdown', unlockAudio);
       document.removeEventListener('touchstart', unlockAudio);
       document.removeEventListener('keydown', unlockAudio);
+      window.removeEventListener('wheel', unlockAudio);
     };
   }, [opened]);
+
+  function toggleMusic() {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (audio.paused) {
+      audio.play().catch(() => setMusicPlaying(false));
+    } else {
+      audio.pause();
+    }
+  }
 
   useEffect(() => {
     if (!opened || reducedMotion) return undefined;
@@ -330,7 +344,7 @@ export default function App() {
       };
 
       frame = window.requestAnimationFrame(step);
-    }, 2000);
+    }, 5000);
 
     return () => {
       cancelled = true;
@@ -394,7 +408,27 @@ export default function App() {
           </MotionInteractive>
         ))}
       </MotionGroup>
-      <audio ref={audioRef} className="invitation-audio" src={musicTrack} loop preload="auto" playsInline muted />
+      <audio
+        ref={audioRef}
+        className="invitation-audio"
+        src={musicTrack}
+        autoPlay
+        loop
+        preload="auto"
+        playsInline
+        onPlay={() => setMusicPlaying(true)}
+        onPause={() => setMusicPlaying(false)}
+      />
+      <button
+        type="button"
+        className={`music-toggle ${musicPlaying ? 'is-playing' : 'is-paused'}`}
+        onClick={toggleMusic}
+        aria-label={musicPlaying ? 'Turn music off' : 'Turn music on'}
+        aria-pressed={musicPlaying}
+        title={musicPlaying ? 'Turn music off' : 'Turn music on'}
+      >
+        <span className="music-toggle-indicator" aria-hidden="true" />
+      </button>
       {!opened && (
         <AnimatedSection className="cover" aria-label={config.meta.coverAriaLabel}>
           <MotionGroup className="cover-panel">
@@ -498,7 +532,7 @@ export default function App() {
                   </MotionItem>
                   <MotionItem as="label">
                     <span>{rsvp.guestCountPlaceholder}</span>
-                    <input name="guestCount" type="number" min="0" max="20" inputMode="numeric" placeholder="1" />
+                    <input name="guestCount" type="number" min="0" max="20" inputMode="numeric" placeholder="Հյուրերի քանակը" />
                   </MotionItem>
                   <MotionItem as="label">
                     <span>{rsvp.invitedByPlaceholder}</span>

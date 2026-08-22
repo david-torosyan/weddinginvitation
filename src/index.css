@@ -2612,8 +2612,8 @@ body.opened {
 
 .hero-overlay::after {
   content: '';
-  width: 0.7rem;
-  height: 0.7rem;
+  width: 0.875rem;
+  height: 0.875rem;
   margin-top: 1.2rem;
   border-right: 1px solid rgba(250, 248, 243, 0.9);
   border-bottom: 1px solid rgba(250, 248, 243, 0.9);
@@ -4563,5 +4563,115 @@ select:focus-visible {
   .closing-photo-controls button {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* Fixed music status and playback control. */
+.music-toggle {
+  position: fixed;
+  left: max(1rem, env(safe-area-inset-left));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 80;
+  display: grid !important;
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  min-height: 0 !important;
+  place-items: center;
+  padding: 0 !important;
+  border: 1px solid rgba(177, 139, 94, 0.52) !important;
+  border-radius: 50% !important;
+  background: rgba(34, 26, 19, 0.88) !important;
+  box-shadow:
+    0 0.35rem 1rem rgba(24, 17, 12, 0.24),
+    inset 0 0 0 0.2rem rgba(255, 255, 255, 0.025) !important;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition:
+    border-color 240ms ease,
+    box-shadow 240ms ease,
+    transform 240ms ease !important;
+}
+
+.music-toggle-indicator {
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: #9d734b;
+  box-shadow: 0 0 0.35rem rgba(157, 115, 75, 0.32);
+  transition: background-color 240ms ease, box-shadow 240ms ease;
+}
+
+.music-toggle.is-playing {
+  border-color: rgba(165, 219, 156, 0.58) !important;
+  box-shadow:
+    0 0.35rem 1rem rgba(24, 17, 12, 0.24),
+    0 0 0.8rem rgba(131, 212, 122, 0.14),
+    inset 0 0 0 0.2rem rgba(255, 255, 255, 0.03) !important;
+}
+
+.music-toggle.is-playing .music-toggle-indicator {
+  background: #bcf3ae;
+  box-shadow:
+    0 0 0.3rem rgba(188, 243, 174, 0.96),
+    0 0 0.75rem rgba(108, 224, 108, 0.76);
+  animation: music-indicator-glow 1.8s ease-in-out infinite;
+}
+
+.music-toggle:focus-visible {
+  outline: 2px solid rgba(188, 243, 174, 0.9) !important;
+  outline-offset: 4px !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .music-toggle:hover {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes music-indicator-glow {
+  0%,
+  100% {
+    opacity: 0.76;
+    transform: scale(0.92);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-toggle,
+  .music-toggle-indicator {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Gently prompt guests to continue scrolling from the hero. */
+.hero-overlay::after {
+  will-change: transform, opacity;
+  animation: scroll-hint-float 1.7s ease-in-out infinite;
+}
+
+@keyframes scroll-hint-float {
+  0%,
+  100% {
+    opacity: 0.58;
+    transform: translate3d(0, -2px, 0) rotate(45deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate3d(0, 5px, 0) rotate(45deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-overlay::after {
+    animation: none !important;
+    opacity: 0.9;
+    transform: rotate(45deg);
   }
 }

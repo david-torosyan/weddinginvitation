@@ -179,7 +179,7 @@ const localizedContent = {
       namePlaceholder: 'Ձեր անունը',
       guestCountPlaceholder: 'Հյուրերի քանակը',
       attendancePlaceholder: 'Կկարողանա՞ք ներկա գտնվել',
-      invitedByPlaceholder: 'Ում կողմից եք հրավիրված',
+      invitedByPlaceholder: 'Ո՞ր կողմից եք հրավիրված',
       invitedByOptions: [{ value: 'bride', label: 'Հարսի կողմից' }, { value: 'groom', label: 'Փեսայի կողմից' }],
       attendanceOptions: [{ value: 'yes', label: 'Այո, սիրով կմասնակցեմ' }, { value: 'no', label: 'Ցավոք, չեմ կարողանա մասնակցել' }],
       submitButtonText: 'Ուղարկել պատասխանը',
