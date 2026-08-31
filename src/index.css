@@ -3096,6 +3096,22 @@ body.opened {
   opacity: 1;
 }
 
+/* Keep RSVP prompts light and muted. */
+.rsvp-section input::placeholder,
+.rsvp-section select:invalid,
+.rsvp-section select option:disabled {
+  color: var(--taupe-gray) !important;
+  font-weight: 300 !important;
+  opacity: 0.72;
+}
+
+/* Field captions remain the only bold RSVP text. */
+.rsvp-section label span {
+  color: var(--charcoal) !important;
+  font-weight: 600 !important;
+  opacity: 1;
+}
+
 .rsvp-countdown > p {
   margin: -0.2rem 0 0.95rem;
   color: var(--antique-brown) !important;
@@ -3162,10 +3178,10 @@ body.opened {
 }
 
 .memory-frame .memory-detail {
-  width: 86% !important;
-  height: 65% !important;
-  top: 43% !important;
-  right: -16% !important;
+  width: 82% !important;
+  height: 69% !important;
+  top: 41% !important;
+  right: -12% !important;
   aspect-ratio: auto !important;
   object-fit: contain !important;
   object-position: center;
@@ -3173,7 +3189,7 @@ body.opened {
   overflow: hidden !important;
   clip-path: inset(0 round 52px) !important;
   /* Anchor the right edge and extend the extra width only toward the left. */
-  transform: scale(1.03) scaleX(1.1);
+  transform: scale(0.98) scaleX(1.05);
   transform-origin: right center;
 }
 
@@ -3504,6 +3520,11 @@ body *:not(svg):not(path)::after {
 
 .armenian-decorative-text {
   font-family: 'ArmenianDecorativeU' !important;
+}
+
+/* Keep the timeline digits decorative while rendering only its separator in a standard system font. */
+.timeline-list time .timeline-time-separator {
+  font-family: system-ui, sans-serif !important;
 }
 
 @media (max-width: 767px) {
@@ -4177,11 +4198,11 @@ body *:not(svg):not(path)::after {
 
 @keyframes memory-settle {
   from {
-    transform: translate3d(0, 16px, 0) scale(1.03) scaleX(1.1);
+    transform: translate3d(0, 16px, 0) scale(0.98) scaleX(1.05);
     opacity: 0.76;
   }
   to {
-    transform: scale(1.03) scaleX(1.1);
+    transform: scale(0.98) scaleX(1.05);
     opacity: 1;
   }
 }

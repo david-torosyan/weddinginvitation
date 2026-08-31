@@ -34,9 +34,19 @@ const formatNumber = value => String(value).padStart(2, '0');
 const NumericText = ({ children }) => String(children).split(/(\d+)/).map((part, index) => (
   /^\d+$/.test(part) ? <span className="numeric-text" key={index}>{part}</span> : part
 ));
+const TimelineTime = ({ value }) => String(value).split(/(:)/).map((part, index) => (
+  part === ':'
+    ? <span className="timeline-time-separator" key={index}>:</span>
+    : <NumericText key={index}>{part}</NumericText>
+));
 const LANGUAGE_STORAGE_KEY = 'invitation-language';
 const DEFAULT_LANGUAGE = 'hy';
 const supportedLanguages = ['hy', 'ru', 'en'];
+const languagePaths = { hy: 'am', ru: 'ru', en: 'en' };
+const languageFromPath = pathname => {
+  const route = pathname.split('/').filter(Boolean)[0]?.toLowerCase();
+  return Object.entries(languagePaths).find(([, path]) => path === route)?.[0] || null;
+};
 const languageOptions = [
   { code: 'hy', label: 'ARM' },
   { code: 'ru', label: 'RUS' },
@@ -204,6 +214,8 @@ function WeddingCalendar({ config }) {
 export default function App() {
   const [language, setLanguage] = useState(() => {
     if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
+    const languageFromUrl = languageFromPath(window.location.pathname);
+    if (languageFromUrl) return languageFromUrl;
     const storedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
     return supportedLanguages.includes(storedLanguage) ? storedLanguage : DEFAULT_LANGUAGE;
   });
@@ -235,7 +247,24 @@ export default function App() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+    const pathname = `/${languagePaths[language]}`;
+    if (window.location.pathname !== pathname) {
+      window.history.replaceState({}, '', `${pathname}${window.location.search}${window.location.hash}`);
+    }
   }, [language]);
+
+  useEffect(() => {
+    const onPopState = () => setLanguage(languageFromPath(window.location.pathname) || DEFAULT_LANGUAGE);
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  function changeLanguage(nextLanguage) {
+    if (nextLanguage === language) return;
+    const pathname = `/${languagePaths[nextLanguage]}`;
+    window.history.pushState({}, '', `${pathname}${window.location.search}${window.location.hash}`);
+    setLanguage(nextLanguage);
+  }
 
   useEffect(() => {
     document.title = `${couple.combinedName} | ${config.meta.documentTitleSuffix}`;
@@ -327,7 +356,7 @@ export default function App() {
       const distance = target - start;
       if (distance <= 12) return;
 
-      const duration = Math.min(26000, Math.max(14000, distance * 14));
+      const duration = Math.min(30000, Math.max(16000, distance * 16));
       const startedAt = performance.now();
       const previousScrollBehavior = document.documentElement.style.scrollBehavior;
       document.documentElement.style.scrollBehavior = 'auto';
@@ -401,7 +430,7 @@ export default function App() {
           <MotionInteractive
             className={language === option.code ? 'active' : ''}
             key={option.code}
-            onClick={() => setLanguage(option.code)}
+            onClick={() => changeLanguage(option.code)}
             type="button"
           >
             {option.label}
@@ -492,7 +521,7 @@ export default function App() {
                   <img src={event.image} alt={event.imageAlt || event.title} loading="lazy" decoding="async" />
                 </MotionItem>
                 <MotionGroup className="timeline-event" variants={motionVariants.fastGroup}>
-                  <MotionItem as="time"><NumericText>{event.time}</NumericText></MotionItem>
+                  <MotionItem as="time"><TimelineTime value={event.time} /></MotionItem>
                   <MotionItem as="h3">{event.timelineTitle || event.title}</MotionItem>
                   <MotionItem as="p" className="timeline-address-title">{event.addressTitle || event.venue}</MotionItem>
                   <MotionItem as="p" className="timeline-address">{event.address}</MotionItem>
@@ -532,7 +561,7 @@ export default function App() {
                   </MotionItem>
                   <MotionItem as="label">
                     <span>{rsvp.guestCountPlaceholder}</span>
-                    <input name="guestCount" type="number" min="0" max="20" inputMode="numeric" placeholder="Հյուրերի քանակը" />
+                    <input name="guestCount" type="number" min="0" max="20" inputMode="numeric" placeholder={rsvp.guestCountPlaceholder} />
                   </MotionItem>
                   <MotionItem as="label">
                     <span>{rsvp.invitedByPlaceholder}</span>
