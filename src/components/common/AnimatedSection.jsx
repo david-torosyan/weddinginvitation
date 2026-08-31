@@ -219,7 +219,6 @@ export function ScrollRevealItem({
   return (
     <Component
       initial={reduced ? false : 'hidden'}
-      animate={reduced ? 'visible' : 'hidden'}
       whileInView="visible"
       viewport={viewport}
       variants={variants}

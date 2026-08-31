@@ -28,7 +28,7 @@ const eventAssets = [
     id: 'bride-house',
     number: '02',
     time: '12:00',
-    mapUrl: 'https://yandex.com/maps/-/CTTJYOkI',
+    mapUrl: 'https://yandex.com/maps/-/CTTRBTnB',
     image: homeImage,
     enabled: true,
   },
