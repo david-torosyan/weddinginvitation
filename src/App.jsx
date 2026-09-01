@@ -28,7 +28,7 @@ import iranqImage from './assets/pics/iranq.jpg';
 import pictureOne from './assets/pics/picture1.jpg';
 import pictureTwo from './assets/pics/picture2.jpg';
 import pictureThree from './assets/pics/picture3.jpg';
-import musicTrack from "./musics/Elvis_Presley_Can't_Help_Falling_In_Love_Official_Audio.mp3";
+import musicTrack from "./musics/Frank_Sinatra_Strangers.mp3";
 
 const formatNumber = value => String(value).padStart(2, '0');
 const NumericText = ({ children }) => String(children).split(/(\d+)/).map((part, index) => (

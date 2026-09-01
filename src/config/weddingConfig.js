@@ -19,7 +19,7 @@ const eventAssets = [
   {
     id: 'groom-house',
     number: '01',
-    time: '11:00',
+    time: '10:40',
     mapUrl: 'https://yandex.com/maps/-/CTTJMRYh',
     image: groomHouseImage,
     enabled: true,
@@ -27,7 +27,7 @@ const eventAssets = [
   {
     id: 'bride-house',
     number: '02',
-    time: '12:00',
+    time: '11:50',
     mapUrl: 'https://yandex.com/maps/-/CTTRBTnB',
     image: homeImage,
     enabled: true,
@@ -35,7 +35,7 @@ const eventAssets = [
   {
     id: 'church',
     number: '03',
-    time: '13:45',
+    time: '13:50',
     mapUrl: 'https://yandex.com/maps/?text=Hovhannavank%20Monastery%2C%20Aragatsotn%2C%20Armenia',
     image: churchImage,
     enabled: true,
@@ -43,7 +43,7 @@ const eventAssets = [
   {
     id: 'zags',
     number: '04',
-    time: '16:00',
+    time: '15:50',
     mapUrl: 'https://yandex.com/maps/?text="ADANA"%20restaurant%20complex%2C%20Armenia',
     image: zagsImage,
     enabled: true,
@@ -51,7 +51,7 @@ const eventAssets = [
   {
     id: 'reception',
     number: '05',
-    time: '17:00',
+    time: '16:45',
     mapUrl: 'https://yandex.com/maps/?text="ADANA"%20restaurant%20complex%2C%20Armenia',
     image: restorantImage,
     enabled: true,
