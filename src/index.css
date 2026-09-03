@@ -3951,9 +3951,14 @@ body *:not(svg):not(path)::after {
   text-align: center;
 }
 
+.calendar-section .calendar-invite-heading {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
 @media (max-width: 767px) {
   .calendar-section .calendar-invite-heading {
-    white-space: nowrap;
     font-size: clamp(1.22rem, 6.1vw, 1.82rem) !important;
     line-height: 1.1 !important;
     letter-spacing: 0.01em;

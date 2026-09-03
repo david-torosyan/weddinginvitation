@@ -58,10 +58,10 @@ function Countdown({ className = '', config }) {
   const { labels } = countdown;
   const t = useCountdown(wedding.date);
   const units = [
-    { label: labels.days, value: t.days },
-    { label: labels.hours, value: t.hours },
-    { label: labels.minutes, value: t.minutes },
-    { label: labels.seconds, value: t.seconds },
+    { id: 'days', label: labels.days, value: t.days },
+    { id: 'hours', label: labels.hours, value: t.hours },
+    { id: 'minutes', label: labels.minutes, value: t.minutes },
+    { id: 'seconds', label: labels.seconds, value: t.seconds },
   ];
 
   return (
@@ -69,7 +69,7 @@ function Countdown({ className = '', config }) {
       <MotionItem as="p" variants={motionVariants.supporting}>{countdown.heading}</MotionItem>
       <MotionGroup className="countdown-grid" variants={motionVariants.fastGroup}>
         {units.map(unit => (
-          <MotionItem as="span" className="countdown-unit" key={unit.label} variants={motionVariants.scale}>
+          <MotionItem as="span" className="countdown-unit" key={unit.id} variants={motionVariants.scale}>
             <strong><NumericText>{formatNumber(unit.value)}</NumericText></strong>
             <small>{unit.label}</small>
           </MotionItem>
