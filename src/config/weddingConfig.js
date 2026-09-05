@@ -62,7 +62,7 @@ const localizedContent = {
   hy: {
     couple: { partnerOne: 'Էլեն', partnerTwo: 'Լյովա', combinedName: 'ԷԼԵՆ & ԼՅՈՎԱ', initials: { partnerOne: 'Է', partnerTwo: 'Լ' } },
     wedding: {
-      date: '2026-10-25T14:00:00+04:00',
+      date: '2026-10-20T14:00:00+04:00',
       displayDate: '20 · 10 · 2026',
       longDate: 'Երեքշաբթի · 20 Հոկտեմբեր · 2026',
       locale: 'hy-AM',
@@ -202,7 +202,7 @@ const localizedContent = {
   ru: {
     couple: { partnerOne: 'Элен', partnerTwo: 'Лёв', combinedName: 'ЭЛЕН & ЛЁВ', initials: { partnerOne: 'Э', partnerTwo: 'Л' } },
     wedding: {
-      date: '2026-10-25T14:00:00+04:00',
+      date: '2026-10-20T14:00:00+04:00',
       displayDate: '20 · 10 · 2026',
       longDate: 'Вторник · 20 Октября · 2026',
       locale: 'ru-RU',
@@ -342,7 +342,7 @@ const localizedContent = {
   en: {
     couple: { partnerOne: 'Elen', partnerTwo: 'Lyov', combinedName: 'ELEN & LYOV', initials: { partnerOne: 'E', partnerTwo: 'L' } },
     wedding: {
-      date: '2026-10-25T14:00:00+04:00',
+      date: '2026-10-20T14:00:00+04:00',
       displayDate: '20 · 10 · 2026',
       longDate: 'Tuesday · 20 October · 2026',
       locale: 'en-US',
