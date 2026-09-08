@@ -909,6 +909,11 @@ img {
   transform: scale(1.02);
 }
 
+.event-media-church img {
+  object-position: center 62%;
+  transform-origin: center 62%;
+}
+
 .event-card:hover .event-media img,
 .event-card:focus-within .event-media img {
   transform: scale(1.13);
